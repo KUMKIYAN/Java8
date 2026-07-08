@@ -34,6 +34,10 @@ public class Main {
         String collect5 = stringList.stream().collect(Collectors.joining(","));
         System.out.println("Joining list with comma : " + collect5);
 
+        // or
+
+        String join = String.join(",", stringList);
+
         // duplicate elements in string.
         List<String> list5 = stringList.stream()
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
