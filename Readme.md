@@ -172,7 +172,7 @@ public class Main {
         List<Integer> list10 = mylist.stream().filter(Objects::nonNull).toList();
 
 
-        // Option to Virtual Thread with lot of bailor plate code
+        // Option 1 - Virtual Thread with lot of bailor plate code
 
         List<Employee> employeeDTOList = new CopyOnWriteArrayList<>();
         CountDownLatch latch = new CountDownLatch(employeeList.size());
@@ -191,7 +191,7 @@ public class Main {
         employeeDTOList.forEach(System.out::println);
 
 
-        // Option to Virtual Thread and best
+        // Option 2 -> Virtual Thread and best
         List<Employee> employeeDTOList2 = new CopyOnWriteArrayList<>();
         try (var executor = Executors.newVirtualThreadPerTaskExecutor()) {
             employeeList.forEach(emp ->
