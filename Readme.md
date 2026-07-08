@@ -31,6 +31,10 @@ public class Main {
 
         stringList.stream()
                     .collect(Collectors.joining(","));
+
+        or  
+
+        String.join(",", stringList);
         
 
        stringList.stream()
