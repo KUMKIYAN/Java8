@@ -6,9 +6,8 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class Main {
-public static void main(String[] args) throws InterruptedException {
 
-        // eliminate duplicate strings from list
+    public static void main(String[] args) throws InterruptedException {
 
         List<String> stringList = new ArrayList<String>();
         stringList.add("kiyan");
@@ -18,62 +17,65 @@ public static void main(String[] args) throws InterruptedException {
         stringList.add("Kiyandoor");
         stringList.add("kk");
 
-        System.out.println("Given List :" + stringList);
+        stringList.stream()
+                    .distinct()
+                    .toList();
 
-        System.out.println("Distinct element : " + stringList.stream().distinct().toList());
+        stringList.stream()
+                    .sorted(Comparator.comparingInt(String::length))
+                    .toList();
 
-        // sort a list of String by length
-        List<String> list = stringList.stream().sorted(Comparator.comparingInt(String::length)).toList();
-        System.out.println("Sorted By length from lowest to highest : " + list);
+        stringList.stream()
+                    .sorted(Comparator.comparingInt(String::length).reversed())
+                    .toList();
 
-        // sort a list of String by length - by descending order
-        List<String> list1 = stringList.stream().sorted(Comparator.comparingInt(String::length).reversed()).toList();
-        System.out.println("Sorted By length from  highest to lowest : " + list1);
+        stringList.stream()
+                    .collect(Collectors.joining(","));
+        
 
-        // join list with comma / csv
-        String collect5 = stringList.stream().collect(Collectors.joining(","));
-        System.out.println("Joining list with comma : " + collect5);
+       stringList.stream()
+                    .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
+                    .entrySet().stream().filter(e -> e.getValue() > 1)
+                    .map(Map.Entry::getKey)
+                    .toList();
 
-        // duplicate elements in string.
-        List<String> list5 = stringList.stream()
-                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
-                .entrySet().stream().filter(e -> e.getValue() > 1).map(Map.Entry::getKey).toList();
-        System.out.println("non-unique elements from list : " + list5);
+        stringList.stream()
+                    .sorted()
+                    .toList();
 
+        stringList.stream()
+                    .sorted()
+                    .limit(3)
+                    .toList();
 
-        List<String> list11 = stringList.stream().sorted().toList();
-        System.out.println("sorted List : " + list11);
+        stringList.stream()
+                    .sorted(Comparator.reverseOrder())
+                    .limit(3)
+                    .toList();
 
-        // sort and get 3
-        List<String> list9 = stringList.stream().sorted().limit(3).toList();
-        System.out.println("First 3 highest from list : " + list9);
+        stringList.stream()
+                    .map(String::toUpperCase)
+                    .toList();
 
-        // sort by reverse and get 3
-        List<String> list8 = stringList.stream().sorted(Comparator.reverseOrder()).limit(3).toList();
-        System.out.println("Last 3 highest from list : " + list8);
+        Map<String, List<String>> collect4 = stringList.stream()
+                .collect(Collectors.groupingBy(k -> k.substring(0, 1)));
 
-
-
-        // char frequency in a String
+        
         String name = "Kiyandoor";
-        Map<Character, Long> collect = name.chars().mapToObj(c -> (char) c).collect(Collectors.groupingBy(
-                Function.identity(), Collectors.counting()
-        ));
-        System.out.println("Frequency of char in String : " + collect);
+        Map<Character, Long> collect = name
+                                        .chars()
+                                        .mapToObj(c -> (char) c)
+                                        .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
 
 
-        // convert to upper case
-        List<String> list3 = stringList.stream().map(String::toUpperCase).toList();
-        System.out.println("uppercase list : " +list3);
-
-        //extract even numbers from string
         List<Integer> allNumber = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9);
-        List<Integer> list2 = allNumber.stream().filter(x -> x % 2 == 0).toList();
-        System.out.println("Event numbers from list :" + list2);
-
+        
+            allNumber.stream()
+            .filter(x -> x % 2 == 0)
+            .toList();
 
         String forNonRepeatedChar = "kkiyiandoor";
-        // Optimized — LinkedHashMap preserves insertion order
+        
         String s =
                 forNonRepeatedChar.chars()
                         .mapToObj(c -> (char) c)
@@ -87,38 +89,33 @@ public static void main(String[] args) throws InterruptedException {
                         .findFirst()
                         .orElse("");
 
-
-        System.out.println("first Non Repeated Char from string \"kkiyiandoor\" : " + s);
-
-        // true and false
-        Map<Boolean, List<Integer>> collect2 = allNumber.stream()
+        // true and false Map
+        allNumber.stream()
                 .collect(Collectors.partitioningBy(x -> x % 2 == 0));
-        System.out.println(collect2);
+        
 
-        // even and add
-        Map<String, List<Integer>> collect3 = allNumber.stream()
+        // even and add Map
+        allNumber.stream()
                 .collect(Collectors.groupingBy(x -> x % 2 == 0 ? "even" : "odd"));
 
-        System.out.println(collect3);
-
         //list of list
-        List<List<Integer>> result = allNumber.stream()
+        allNumber.stream()
                 .collect(Collectors.partitioningBy(x -> x % 2 == 0))
                 .values()
                 .stream()
                 .toList();
 
-        System.out.println(result);
-
         //stats
-        IntSummaryStatistics stats = allNumber.stream().mapToInt(Integer::intValue).summaryStatistics();
+        IntSummaryStatistics stats = allNumber.stream()
+                    .mapToInt(Integer::intValue)
+                    .summaryStatistics();
+
+
         System.out.println(stats.getMin());
         System.out.println(stats.getMax());
         System.out.println(stats.getAverage());
 
-        // list of strings - group by first letter
-        Map<String, List<String>> collect4 = stringList.stream().collect(Collectors.groupingBy(k -> k.substring(0, 1)));
-        System.out.println(collect4);
+        
 
         // list to map
         List<Employee> employeeList = new ArrayList<>();
@@ -126,69 +123,56 @@ public static void main(String[] args) throws InterruptedException {
         employeeList.add(new Employee(2, "sudha", "hardware", 200));
         employeeList.add(new Employee(3, "ravi", "software", 300));
         employeeList.add(new Employee(4, "rajesh", "hardware", 400));
+        
+
         Map<Integer, Employee> collect1 = employeeList.stream()
                 .collect(Collectors.toMap(Employee::id, Function.identity()));
-        System.out.println(collect1);
 
         // convert to DTO
         List<Employee> list4 = employeeList.stream()
                 .map(e -> new Employee(e.id(), e.name(), e.department(), e.salary()))
                 .toList();
-        System.out.println(list4);
 
+        List<Employee> list6 = employeeList.stream()
+                .sorted(Comparator.comparing(Employee::name)).toList();
 
-
-
-        List<Employee> list6 = employeeList.stream().sorted(Comparator.comparing(Employee::name)).toList();
-        System.out.println(list6);
+        Map<Integer, Map<String, List<Employee>>> collect6 = employeeList.stream()
+                .collect(Collectors.groupingBy(Employee::id, Collectors.groupingBy(Employee::department)));
 
         // count words in a sentence
         String countWords = "i am a sentence";
         System.out.println(countWords.split(" ").length);
 
-
         //FlatMap Example
         List<Integer> list7 = result.stream().flatMap(Collection::stream).toList();
         System.out.println(list7);
 
-
-
         boolean b = list7.stream().anyMatch(x -> x > 10);
-        System.out.println(b);
+
         boolean a = list7.stream().anyMatch(x -> x > 8);
-        System.out.println(a);
 
         boolean b1 = list7.stream().noneMatch(x -> x > 8);
-        System.out.println(b1);
 
         boolean b2 = list7.stream().allMatch(x -> x > 8);
-        System.out.println(b2);
 
         boolean b3 = list7.stream().allMatch(x -> x < 10);
-        System.out.println(b3);
 
-
-        Integer reduceSum = list7.stream().reduce(0, Integer::sum);
-        System.out.println(reduceSum);
-        System.out.println("sum : " + reduceSum);
+        list7.stream().reduce(0, Integer::sum);
 
         OptionalDouble average = list7.stream()
                 .mapToInt(Integer::intValue)
                 .average();
-        System.out.println("Average : " + average);
 
-        Map<Integer, Map<String, List<Employee>>> collect6 = employeeList.stream()
-                .collect(Collectors.groupingBy(Employee::id, Collectors.groupingBy(Employee::department)));
+        list7.stream().sorted(Comparator.reverseOrder()).skip(1).findFirst()
+                .ifPresent(System.out::println);
 
-        System.out.println(collect6);
-
-        // find second largest
-        list7.stream().sorted(Comparator.reverseOrder()).skip(1).findFirst().ifPresent(System.out::println);
 
         // not null
         List<Integer> mylist = Arrays.asList(1, null, 2, 3);
         List<Integer> list10 = mylist.stream().filter(Objects::nonNull).toList();
-        System.out.println(list10);
+
+
+        // Option to Virtual Thread with lot of bailor plate code
 
         List<Employee> employeeDTOList = new CopyOnWriteArrayList<>();
         CountDownLatch latch = new CountDownLatch(employeeList.size());
@@ -206,6 +190,8 @@ public static void main(String[] args) throws InterruptedException {
         latch.await(); // main thread waits here until count reaches 0
         employeeDTOList.forEach(System.out::println);
 
+
+        // Option to Virtual Thread and best
         List<Employee> employeeDTOList2 = new CopyOnWriteArrayList<>();
         try (var executor = Executors.newVirtualThreadPerTaskExecutor()) {
             employeeList.forEach(emp ->
