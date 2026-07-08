@@ -203,6 +203,11 @@ public class Main {
             );
         } // auto waits for all tasks to complete
         employeeDTOList2.forEach(System.out::println);
+
+        SortedSet<String> contributingNodes = serviceRecords.stream()
+                                                    .map(MetricRecord::getNodeId)
+                                                .collect(Collectors.toCollection(TreeSet::new));
+
      }
     }
 
