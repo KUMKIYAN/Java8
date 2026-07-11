@@ -1,6 +1,7 @@
 import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -217,7 +218,38 @@ public class Main {
             );
         } // auto waits for all tasks to complete
         employeeDTOList2.forEach(System.out::println);
+
+
+        ExecutorService executor = Executors.newFixedThreadPool(2);
+        executor.submit(Main::getEvenNumber);
+        executor.submit(Main::getOddNumbers);
+        executor.shutdown();
+
+        try (ExecutorService executorService = Executors.newVirtualThreadPerTaskExecutor()) {
+            executorService.submit(Main::getEvenNumber);
+            executorService.submit(Main::getOddNumbers);
+            executorService.shutdown();
+        }
+
+
      }
+
+    private static void getOddNumbers() {
+        for (int i = 1; i <= 100; i++) {
+            if (i % 2 != 0) {
+                System.out.println(i + "=>" + Thread.currentThread().getName());
+            }
+        }
     }
+
+    private static void getEvenNumber() {
+        for (int i = 1; i <= 100; i++) {
+            if (i % 2 == 0) {
+                System.out.println(i + "=>" + Thread.currentThread().getName());
+            }
+        }
+    }
+}
+
 
     record Employee (int id, String name, String department, int salary){}
