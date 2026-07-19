@@ -115,6 +115,36 @@ public class Main {
                     .summaryStatistics();
 
 
+                // IntSummaryStatistics
+                IntSummaryStatistics intStats = list.stream()
+                .mapToInt(Integer::intValue)
+                .summaryStatistics();
+        
+                // LongSummaryStatistics
+                LongSummaryStatistics longStats = list.stream()
+                .mapToLong(Long::longValue)
+                .summaryStatistics();
+                
+                // DoubleSummaryStatistics
+                DoubleSummaryStatistics doubleStats = list.stream()
+                .mapToDouble(Double::doubleValue)
+                .summaryStatistics();
+
+                intStats.getCount();    // number of elements
+                intStats.getSum();      // total sum
+                intStats.getMin();      // minimum value
+                intStats.getMax();      // maximum value
+                intStats.getAverage();  // average value
+
+
+                IntSummaryStatistics stats = employees.stream()
+                .collect(Collectors.summarizingInt(Employee::getSalary));
+
+                // also available:
+                Collectors.summarizingLong(...)
+                Collectors.summarizingDouble(...)
+
+
         System.out.println(stats.getMin());
         System.out.println(stats.getMax());
         System.out.println(stats.getAverage());
