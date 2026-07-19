@@ -171,7 +171,7 @@ public class Main {
                 .sorted(Comparator.comparing(Employee::name)).toList();
 
         Map<Integer, Map<String, List<Employee>>> collect6 = employeeList.stream()
-                .collect(Collectors.groupingBy(Employee::id, Collectors.groupingBy(Employee::department)));
+                .collect(Collectors.groupingBy(Employee::department, Collectors.groupingBy(Employee::id)));
 
         // count words in a sentence
         String countWords = "i am a sentence";

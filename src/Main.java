@@ -182,8 +182,8 @@ public class Main {
                 .average();
         System.out.println("Average : " + average);
 
-        Map<Integer, Map<String, List<Employee>>> collect6 = employeeList.stream()
-                .collect(Collectors.groupingBy(Employee::id, Collectors.groupingBy(Employee::department)));
+        Map<String, Map<Integer, List<Employee>>> collect6 = employeeList.stream()
+                .collect(Collectors.groupingBy(Employee::department, Collectors.groupingBy(Employee::id)));
 
         System.out.println(collect6);
 
