@@ -170,7 +170,7 @@ public class Main {
         List<Employee> list6 = employeeList.stream()
                 .sorted(Comparator.comparing(Employee::name)).toList();
 
-        Map<Integer, Map<String, List<Employee>>> collect6 = employeeList.stream()
+        Map<String, Map<Integer, List<Employee>>> collect6 = employeeList.stream()
                 .collect(Collectors.groupingBy(Employee::department, Collectors.groupingBy(Employee::id)));
 
         // count words in a sentence
