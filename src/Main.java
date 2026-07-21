@@ -6,6 +6,7 @@ import java.util.concurrent.Executors;
 import java.util.function.Function;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
@@ -231,6 +232,17 @@ public class Main {
         Map<String, List<Employee>> collect9 = employeeList.stream().collect(Collectors.groupingBy(Employee::name));
         System.out.println(collect9);
 
+
+        IntStream.rangeClosed(2, 100)
+                .filter(n -> IntStream.rangeClosed(2, (int) Math.sqrt(n)).noneMatch(i -> n % i == 0)).boxed().toList().forEach(System.out::println);
+
+
+
+        IntStream.rangeClosed(2, 100)
+                .filter(n -> IntStream.rangeClosed(2, (int) Math.sqrt(n))
+                        .noneMatch(i -> n % i == 0))
+                .forEach(System.out::println);
+
         // carrier Threads
         ExecutorService executor = Executors.newFixedThreadPool(2);
         executor.submit(Main::getEvenNumber);
@@ -250,7 +262,7 @@ public class Main {
     private static void getOddNumbers() {
         for (int i = 1; i <= 100; i++) {
             if (i % 2 != 0) {
-                System.out.println(i + "=>" + Thread.currentThread().getName());
+              //  System.out.println(i + "=>" + Thread.currentThread().getName());
             }
         }
     }
@@ -258,7 +270,7 @@ public class Main {
     private static void getEvenNumber() {
         for (int i = 1; i <= 100; i++) {
             if (i % 2 == 0) {
-                System.out.println(i + "=>" + Thread.currentThread().getName());
+            //    System.out.println(i + "=>" + Thread.currentThread().getName());
             }
         }
     }
