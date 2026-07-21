@@ -4,6 +4,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.function.Function;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class Main {
@@ -220,19 +221,31 @@ public class Main {
         employeeDTOList2.forEach(System.out::println);
 
 
+        Map<String, List<Employee>> collect7 = employeeList.stream().filter(k -> k.salary() > 199).collect(Collectors.groupingBy(Employee::department));
+
+        System.out.println(collect7);
+
+        Map<String, Long> collect8 = employeeList.stream().filter(k -> k.salary() > 199).collect(Collectors.groupingBy(Employee::department, Collectors.counting()));
+        System.out.println(collect8);
+
+        Map<String, List<Employee>> collect9 = employeeList.stream().collect(Collectors.groupingBy(Employee::name));
+        System.out.println(collect9);
+
+        // carrier Threads
         ExecutorService executor = Executors.newFixedThreadPool(2);
         executor.submit(Main::getEvenNumber);
         executor.submit(Main::getOddNumbers);
         executor.shutdown();
 
+
+        // virtual Threads
         try (ExecutorService executorService = Executors.newVirtualThreadPerTaskExecutor()) {
             executorService.submit(Main::getEvenNumber);
             executorService.submit(Main::getOddNumbers);
             executorService.shutdown();
         }
 
-
-     }
+    }
 
     private static void getOddNumbers() {
         for (int i = 1; i <= 100; i++) {
