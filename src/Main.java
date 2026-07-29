@@ -257,6 +257,12 @@ public class Main {
             executorService.shutdown();
         }
 
+       // Thread Sequential execution.
+        ExecutorService executor2 = Executors.newSingleThreadExecutor();
+        executor2.submit(Main::getEvenNumber);
+        executor2.submit(Main::getOddNumbers);
+        executor2.shutdown();
+
         CompletableFuture.runAsync(Main::getEvenNumber).thenRun(Main::getOddNumbers).join();
 
     }
@@ -264,7 +270,7 @@ public class Main {
     private static void getOddNumbers() {
         for (int i = 1; i <= 100; i++) {
             if (i % 2 != 0) {
-              //  System.out.println(i + "=>" + Thread.currentThread().getName());
+                System.out.println(i + "=>" + Thread.currentThread().getName());
             }
         }
     }
@@ -272,7 +278,7 @@ public class Main {
     private static void getEvenNumber() {
         for (int i = 1; i <= 100; i++) {
             if (i % 2 == 0) {
-            //    System.out.println(i + "=>" + Thread.currentThread().getName());
+                System.out.println(i + "=>" + Thread.currentThread().getName());
             }
         }
     }
