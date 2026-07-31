@@ -11,6 +11,20 @@ import java.util.stream.IntStream;
 public class Main {
     public static void main(String[] args) throws InterruptedException {
 
+        String name1 = "Kiyandoor";
+
+        List<Map.Entry<Character, Long>> list13 = name1.chars().mapToObj(c -> (char) c).collect(Collectors.groupingBy(Function.identity(), LinkedHashMap::new, Collectors.counting())).entrySet().stream().filter(a -> a.getValue() > 1).toList();
+
+        System.out.println(list13);
+
+
+
+        //AnagramTest
+        String s1 = "hello";
+        String s2 = null;
+
+        System.out.println("Is Annagram : " + isAnagram(s1,s2));
+
         // eliminate duplicate strings from list
 
         List<String> stringList = new ArrayList<String>();
@@ -265,6 +279,15 @@ public class Main {
 
         CompletableFuture.runAsync(Main::getEvenNumber).thenRun(Main::getOddNumbers).join();
 
+    }
+
+    private static boolean isAnagram(String s1, String s2) {
+        if(s1 == null || s2 == null || s1.length() != s2.length()) {
+            return false;
+        }
+        String sortedString1 = s1.toLowerCase().chars().sorted().mapToObj(c -> String.valueOf((char) c)).collect(Collectors.joining());
+        String sortedString2 = s2.toLowerCase().chars().sorted().mapToObj(c -> String.valueOf((char) c)).collect(Collectors.joining());
+        return sortedString1.equals(sortedString2);
     }
 
     private static void getOddNumbers() {
