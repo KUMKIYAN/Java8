@@ -34,17 +34,16 @@ public class BracketMatching {
         Stack<Character> stack = new Stack<>();
         for(Character ch : s.toCharArray()){
             if(Map.of().containsValue(ch)){
-                stack.push(ch)
+                stack.push(ch);
             } else if(!stack.isEmpty() && stack.peek().equals(map.get(ch))){
                 return false;
             }
 
         }
-
-
+        return false;
     }
 
     public static void main(String[] args) {
-        System.out.println(isValid("(abc)[k]{}"));
+        System.out.println(isValid("(abc[k]{}"));
     }
 }

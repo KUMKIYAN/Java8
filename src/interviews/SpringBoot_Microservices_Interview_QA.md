@@ -79,6 +79,7 @@ Self invocation problem:
 
 Fix:
 → move method to separate class ✅
+→ Inject self via @Autowired ✅
 → inject self via ApplicationContext ✅
 ```
 
