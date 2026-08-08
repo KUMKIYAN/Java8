@@ -525,6 +525,25 @@ Used in production:
 → /health   → ECS health check ✅
 → /metrics  → Prometheus + Grafana ✅
 → /loggers  → change log level without restart ✅
+
+# change to DEBUG — see detailed logs ✅
+POST http://localhost:8080/actuator/loggers/com.kiyan.order
+Content-Type: application/json
+{
+  "configuredLevel": "DEBUG"
+}
+
+# check current level of specific package
+GET http://localhost:8080/actuator/loggers/com.kiyan.order
+
+# response:
+{
+  "configuredLevel": "INFO",   # what you set ✅
+  "effectiveLevel": "INFO"     # what is active ✅
+}
+
+# check all loggers
+GET http://localhost:8080/actuator/loggers
 ```
 
 ```yaml

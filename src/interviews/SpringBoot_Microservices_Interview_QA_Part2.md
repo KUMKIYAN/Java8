@@ -479,6 +479,14 @@ All Optional methods:
 → filter()       → filter value ✅
 → get()          → risky — use with care ⚠️
 
+Method          Interface       Input       Output
+ifPresent()     Consumer        value       nothing
+orElse()        direct value    nothing     default value
+orElseGet()     Supplier        nothing     default value
+orElseThrow()   Supplier        nothing     exception
+map()           Function        value       new value
+filter()        Predicate       value       boolean
+
 Optional rules:
 ✅ use as return type for nullable results
 ✅ use orElseThrow for mandatory data
