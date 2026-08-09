@@ -128,6 +128,20 @@ CloudWatch has three parts:
 → search with filter patterns + regex ✅
 → retention 1 day to forever ✅
 
+Log Group: /ecs/order-service
+    ↓
+    ├── Log Stream: container-1 ✅
+    │   → 10:00 Order created ORD001
+    │   → 10:01 Payment processed
+    │
+    ├── Log Stream: container-2 ✅
+    │   → 10:00 Order created ORD002
+    │   → 10:01 DB connection failed
+    │
+    └── Log Stream: container-3 ✅
+        → 10:00 Order created ORD003
+        → 10:01 Kafka published
+
 2. CloudWatch Metrics:
 → CPU, memory, request count ✅
 → custom metrics from Spring Boot ✅
