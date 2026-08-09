@@ -97,13 +97,19 @@ PagingAndSortingRepository adds:
 
 JpaRepository adds:
 → saveAll() ✅
-→ flush() ✅
-→ saveAndFlush() ✅
 → deleteAllInBatch() ✅ ->  // DELETE FROM orders -> faster than deleteAll() -> where delete one by one.
 → deleteAllByIdInBatch(List<Long> ids);
-→ getReferenceById() ✅ -> // getReferenceById() — lazy proxy, no DB hit
 → List<Order> findAllById(List<Long> ids); -> // findAllById() — fetch list by IDs
-→ recommended — most feature rich ✅
+→ getReferenceById() ✅ -> // getReferenceById() — lazy proxy, no DB hit
+
+→ flush() ✅ - persistance memory -> sends pending SQL to DB -> you must call save() first.
+orderRepository.save(order);  // step 1 — in memory ✅
+orderRepository.flush();      // step 2 — SQL sent ✅
+Long id = order.getId();      // ID available ✅
+
+→ saveAndFlush() ✅ -> SQL Sent to DB immediately. ID will also generaged here
+Order saved = orderRepository.saveAndFlush(order);
+Long id = saved.getId(); // ID available immediately ✅
 ```
 
 ```java
