@@ -99,8 +99,10 @@ JpaRepository adds:
 → saveAll() ✅
 → flush() ✅
 → saveAndFlush() ✅
-→ deleteAllInBatch() ✅
-→ getReferenceById() ✅
+→ deleteAllInBatch() ✅ ->  // DELETE FROM orders -> faster than deleteAll() -> where delete one by one.
+→ deleteAllByIdInBatch(List<Long> ids);
+→ getReferenceById() ✅ -> // getReferenceById() — lazy proxy, no DB hit
+→ List<Order> findAllById(List<Long> ids); -> // findAllById() — fetch list by IDs
 → recommended — most feature rich ✅
 ```
 
