@@ -325,7 +325,7 @@ public class OrderServiceApplication { }
 → inside @Configuration class ✅
 → third party classes you don't own ✅
 → full control over object creation ✅
-→ configure before returning ✅
+→ customize the object with properties BEFORE handing it to Spring ✅
 → multiple beans of same type possible ✅
 
 Examples of @Bean:
@@ -436,7 +436,7 @@ Important considerations:
 → idempotency check ✅
 → outbox pattern ✅
 → stuck saga — Kafka at-least-once delivery ✅
-→ compensation transactions on failure ✅
+→ Compensation Semantics ✅
 ```
 
 ```java
@@ -806,7 +806,7 @@ public class OrderService {
 ```
 @Async = run method in separate thread
          caller not blocked ✅
-         non-blocking ✅
+         non-blocking - caller does other work  ✅
 
 Requirements:
 1. @EnableAsync on main class ✅

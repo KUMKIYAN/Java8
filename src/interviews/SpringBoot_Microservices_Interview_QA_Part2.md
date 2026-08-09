@@ -843,3 +843,51 @@ Order Service          Kafka            Payment Service
 | @Mock | Mockito — unit test — no Spring context |
 | @MockBean | Spring — integration test — replaces bean |
 | Payment failure | Saga + Outbox + Compensation + Idempotency ✅ |
+
+```
+@RetryableTopic =
+auto creates retry topics + DLT ✅
+retries with backoff automatically ✅
+no manual retry logic needed ✅
+
+@RetryableTopic retries when:
+→ method throws EXCEPTION ✅ before exception
+```
+```
+// ── Dependency ────────────────────────────────────────────────
+// spring-kafka already includes @RetryableTopic ✅
+
+// ── Consumer with @RetryableTopic ────────────────────────────
+@Service
+@RequiredArgsConstructor
+@Slf4j
+public class OrderConsumer {
+
+    @RetryableTopic(
+        attempts       = "4",        // 1 original + 3 retries ✅
+        backoff        = @Backoff(
+            delay      = 1000,       // wait 1 second ✅
+            multiplier = 2.0         // 1s → 2s → 4s ✅
+        ),
+        dltTopicSuffix  = "-dlt",    // dead letter topic ✅
+        include         = { TransientException.class },  // retry these ✅
+        exclude         = { ValidationException.class }  // skip these ✅
+    )
+    @KafkaListener(topics = "order-events")
+    public void consume(OrderEvent event) {
+        log.info("Processing order: {}", event.getOrderId());
+        orderService.process(event);
+        // fails → retry automatically ✅
+    }
+
+    // called when ALL retries exhausted ✅
+    @DltHandler
+    public void handleDlt(
+            OrderEvent event,
+            @Header(KafkaHeaders.RECEIVED_TOPIC) String topic) {
+        log.error("Poison message in: {}", topic);
+        alertService.notify(event); // alert team ✅
+    }
+}
+
+```
