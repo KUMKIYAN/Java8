@@ -207,11 +207,11 @@ public class DataSourceAutoConfiguration {
 → supports default values ✅
 → scattered across classes ⚠️
 
-@ConfigurationProperties:
+@ConfigurationProperties: (prefix = "app.order")
 → group of related properties ✅
-→ type safe binding ✅
+→ type safe binding ✅ -> wrong type → compile error not runtime
 → supports validation (@Valid) ✅
-→ supports nested objects ✅
+→ supports nested objects ✅ -> inner class maps to nested yml structure
 → centralized config ✅
 → recommended for complex config ✅
 ```
@@ -278,6 +278,12 @@ readOnly = true:
 → FlushMode.NEVER → no dirty checking ✅
 → no entity snapshots (memory saving) ✅
 → DB optimizes read-only transactions ✅
+    → DB acquires READ LOCK only ✅
+    → lighter than write lock ✅
+    → multiple readers simultaneously ✅
+    → no transaction log needed ✅
+    → no rollback segment needed ✅
+    → DB skips write overhead ✅
 → better performance ✅
 
 readOnly = false (default):

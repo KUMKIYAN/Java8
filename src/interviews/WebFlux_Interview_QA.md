@@ -1,7 +1,55 @@
 # Spring WebFlux — Interview Q&A
 > 5 Questions with Correct Answers & Code Snippets
 
----
+```
+
+"Spring WebFlux is a reactive non-blocking
+web framework introduced in Spring 5 ✅
+
+Problem with Spring MVC:
+→ one thread per request ❌
+→ thread WAITS for DB/API response ❌
+→ 1000 requests = 1000 threads ❌
+→ thread pool exhaustion under high load ❌
+
+WebFlux solves this:
+→ small number of threads ✅
+→ thread never waits ✅
+→ handles many requests with few threads ✅
+→ better throughput under high concurrency ✅
+
+Built on Project Reactor:
+→ Mono = 0 or 1 element (like Optional) ✅
+→ Flux = 0 to N elements (like Stream) ✅
+→ lazy — nothing runs until subscribed ✅
+
+Key operators:
+→ map     = sync transform T → R ✅
+→ flatMap = async transform T → Mono/Flux ✅
+→ filter  = predicate filtering ✅
+
+WebClient:
+→ replaces RestTemplate ✅
+→ non-blocking HTTP client ✅
+→ returns Mono/Flux ✅
+→ built-in retry + timeout ✅
+
+Backpressure:
+→ consumer controls flow ✅
+→ prevents overload ✅
+→ limitRate, onBackpressureBuffer ✅
+
+When to use WebFlux:
+→ high concurrency ✅
+→ streaming data ✅
+→ microservices calling many services ✅
+
+When NOT to use:
+→ simple CRUD ✅
+→ team not familiar ✅
+→ blocking libraries like JDBC ✅"
+
+```
 
 ## Q1. What is Spring WebFlux? Why use it over Spring MVC?
 
