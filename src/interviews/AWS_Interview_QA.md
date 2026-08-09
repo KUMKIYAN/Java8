@@ -14,6 +14,10 @@ SQS (Simple Queue Service):
 → message retention up to 14 days ✅
 → DLQ for failed messages ✅
 → visibility timeout ✅
+    Consumer reads message → Message hidden for 30 sec → Processing done → delete message
+    What if processing takes longer than 30 sec?
+    Visibility timeout expires → message becomes visible again → another consumer picks it up → processed twice!
+    Set visibility timeout longer than your processing time
 → at-least-once delivery ✅
 → Standard (unordered) + FIFO (ordered) ✅
 
