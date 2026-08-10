@@ -189,6 +189,15 @@ SUPPORTS      → use if exists, run without if not ✅
 NOT_SUPPORTED → suspend existing, run without ✅
 MANDATORY     → must have existing → else exception ✅
 NEVER         → must NOT have → else exception ✅
+
+
+REQUIRED      → orderservice -> paymentservice
+REQUIRES_NEW  → orderservice -> paymentservice -> Audit.save
+NESTED        → save point between orderservice & paymentservice
+SUPPORTS      → getProduct
+NOT_SUPPORTED → ReportService.generate
+MANDATORY     → orderservice -> paymentservice
+NEVER         → reportService.generate
 ```
 
 ```java
@@ -503,6 +512,19 @@ public final class CreditCard
 // 6. ZGC Generational ✅
 // -XX:+UseZGC -XX:+ZGenerational
 // low latency GC ✅
+
+ZGC (Java 11-20):
+        → low latency GC ✅
+        → concurrent compaction ✅
+        → pause < 1ms ✅
+
+ZGC Generational (Java 21):
+        → same low latency ✅
+        → ADDS generational concept ✅
+young + old generation ✅
+        → better throughput ✅
+        → better memory efficiency ✅
+        → -XX:+UseZGC -XX:+ZGenerational ✅
 
 // 7. String Templates (Preview) ✅
 String name = "Kiyan";
