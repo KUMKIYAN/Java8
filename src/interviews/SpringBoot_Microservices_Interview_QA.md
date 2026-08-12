@@ -15,8 +15,10 @@ Used for readability and layer identification:
 @Repository  → database/persistence layer
 @Controller  → web/endpoint layer
 
-@Repository  → extra benefit: translates SQL exceptions
+@Repository  → extra benefit:  same exception regardless of DB ✅ 
+               translates SQL exceptions
                to Spring DataAccessException hierarchy ✅
+             
 
 @RestController = @Controller + @ResponseBody combined
 ```

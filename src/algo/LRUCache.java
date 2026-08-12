@@ -22,8 +22,8 @@ public class LRUCache<K,V> extends LinkedHashMap<K,V> {
         lruCache.put(1,"kiyan");
         lruCache.put(2,"ravi");
         lruCache.put(3,"rajesh");
-
-        lruCache.get(1);
+        System.out.println(lruCache);
+        lruCache.get(2);
         System.out.println(lruCache);
         lruCache.put(4,"sudha");
         System.out.println(lruCache);
