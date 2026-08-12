@@ -88,8 +88,8 @@ PagingAndSortingRepository → pagination + sorting ✅
 JpaRepository → JPA specific — most feature rich ✅
 
 CrudRepository methods:
-→ save(), findById(), findAll()
-→ delete(), count(), existsById() ✅
+→ save(), delete(), deleteAll(), deleteAll(List<Long> ids)
+→ findById(), findAll(), count(), existsById() ✅
 
 PagingAndSortingRepository adds:
 → findAll(Pageable) ✅
@@ -374,6 +374,10 @@ return ResponseEntity.ok()
 return orderRepository.findById(id)
         .map(order -> ResponseEntity.ok(order))
         .orElse(ResponseEntity.notFound().build());
+
+return ResponseEntity
+        .accepted()           // 202 ✅
+        .body("Request accepted — processing");
 ```
 
 | Status | Method | Use case |
