@@ -241,6 +241,21 @@ ExceptionTranslationFilter:
 SecurityContextHolder:
 → stores authenticated user per request (ThreadLocal) ✅
 → cleared after request completes
+
+CORS (Cross Origin Resource Sharing):
+→ browser blocks requests from
+  different origin (domain/port) ❌
+→ server must allow specific origins ✅
+→ protects server from unauthorized domains ✅
+
+CSRF (Cross Site Request Forgery):
+→ attacker tricks logged-in user's browser
+  into sending unwanted request ❌
+→ uses victim's existing session/cookie ✅
+→ disabled in REST APIs because
+  JWT in header cannot be stolen
+  by attacker ✅
+
 ```
 
 ```java

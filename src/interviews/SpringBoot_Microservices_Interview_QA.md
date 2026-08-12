@@ -63,6 +63,7 @@ public class OrderService {
 @Transactional:
 → atomicity — all operations succeed or all fail ✅
 → if any exception → entire transaction rolled back ✅
+→ if success -> auto commit
 
 Propagation types:
 → REQUIRED      → use existing or create new (DEFAULT) ✅
@@ -126,8 +127,18 @@ public class PaymentService {
 
 Other slice tests:
 @DataJpaTest    → repository layer only
-@JsonTest       → JSON serialization only
-@RestClientTest → REST clients only
+@JsonTest       → JSON serialization only - to assert json paths
+                  @Autowired
+                  private JacksonTester<Order> json;
+                  assertThat(json.write(order)).hasJsonPathValue("$.status", "PAID").hasJsonPathValue("$.amount", 100.0);
+                  assertThat(json.parse(content)).hasFieldOrPropertyWithValue("status", "PAID");
+                  
+@RestClientTest → REST clients only 
+                  @Autowired
+                  private MockRestServiceServer mockServer;
+                  // tests REST clients - mock external API response
+                  mockServer.expect(requestTo("/api/payments/1")) 
+                            .andRespond(withSuccess("{\"id\":1,\"status\":\"PAID\"}", MediaType.APPLICATION_JSON));  
 ```
 
 ```java
@@ -251,7 +262,8 @@ API Gateway = single entry point for all clients
 Responsibilities:
 → routing → forward to correct service ✅
 → authentication → validate JWT ✅
-→ rate limiting → 100 req/sec per client ✅
+→ rate limiting → 100 req/sec per client ✅ Rule
+→ Throttling -> stop client overwelming with external calls -> with 429 Too Many Requests ✅ enforcing the rule.
 → request/response transformation ✅
 → load balancing → healthy instances ✅
 → SSL termination → HTTPS at gateway ✅
@@ -666,7 +678,7 @@ Detect:
 → p6spy library ✅
 → Hibernate Statistics ✅
 
-Fix options:
+Fix options: In Department object Employee object also load well in advance with one Query.
 → JOIN FETCH ✅
 → @EntityGraph ✅
 → @BatchSize ✅
