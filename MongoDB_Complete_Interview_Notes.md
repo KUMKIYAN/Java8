@@ -561,6 +561,21 @@ spring:
 
 ## 12. Replica Set and Sharding
 
+Shard 1 = Replica Set 1 (primary + 2 secondary) ✅
+Shard 2 = Replica Set 2 (primary + 2 secondary) ✅
+Shard 3 = Replica Set 3 (primary + 2 secondary) ✅
+
+Simple analogy
+
+    Sharding = divide library into 3 floors ✅
+    floor 1 = A-H books ✅
+    floor 2 = I-P books ✅
+    floor 3 = Q-Z books ✅
+    
+    Each floor = Replica Set ✅
+    = original + 2 copies ✅
+    for high availability ✅
+
 ### Replica Set
 ```
 Primary   → accepts reads and writes
