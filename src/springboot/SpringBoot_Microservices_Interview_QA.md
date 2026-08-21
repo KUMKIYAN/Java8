@@ -277,6 +277,24 @@ Responsibilities:
 Popular gateways:
 → AWS API Gateway ✅
 → Kong, Nginx, Spring Cloud Gateway, Apigee
+
+Authentication:
+
+API Gateway receive Authentication Request and can do either one of this option. 
+
+Option 1 — Dedicated Auth Service ✅
+→ separate microservice ✅
+→ handles login + JWT generation ✅
+→ large enterprise projects ✅
+→ multiple apps share same auth ✅
+
+Option 2 — Auth inside existing service ✅
+→ no separate auth service ❌
+→ login endpoint inside
+  Order or User service ✅
+→ smaller projects ✅
+→ simpler ✅
+
 ```
 
 ---

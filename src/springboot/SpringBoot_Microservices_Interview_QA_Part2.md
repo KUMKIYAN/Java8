@@ -201,6 +201,10 @@ public record ErrorResponse(
     String method,
     LocalDateTime timestamp
 ) {}
+
+@ControllerAdvice("com.kiyan.payment") // package level
+@ControllerAdvice(assignableTypes = {OrderController.class, PaymentController.class}) // class level
+
 ```
 
 ```json

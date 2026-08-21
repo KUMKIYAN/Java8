@@ -88,6 +88,8 @@ aws_ecs_task_definition = same in Terraform HCL ✅
 
 serviceDefinition.json = JSON format of service ✅
 aws_ecs_service        = same in Terraform HCL ✅
+
+HashiCorp Configuration Language
 ```
 
 ```hcl
