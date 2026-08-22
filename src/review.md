@@ -1,8 +1,10 @@
 distributed event streaming platform  - async communication - Decoupling - cascade Failure - High Throughput - etention + replay - Fan-out - Event sourcing
 
 At most once - auto ack before processing - in case of crash → message LOST - no duplicate - but data loss
+
 At least once - manual ack after processing  - in case of Crash - reprocessed - duplicate
-Exactly once - no loss + no duplicate - FOUR things - idempotence - acks - manual ack - Idempotency check - processedEventId - DB Constratin.
+
+Exactly once - no loss + no duplicate - FOUR things - idempotence - acks - manual ack - Idempotency check - processedEventId - DB Constraint.git 
 
 -----
 
