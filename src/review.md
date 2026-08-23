@@ -1,4 +1,4 @@
-Distributed event streaming platform  - async communication - Decoupling - cascade Failure - High Throughput - etention + replay - Fan-out - Event sourcing
+Distributed event streaming platform  - async communication - Decoupling - cascade Failure - High Throughput - Retention + replay - Fan-out - Event sourcing
 
 At most once - auto ack before processing - in case of crash → message LOST - no duplicate - but data loss
 

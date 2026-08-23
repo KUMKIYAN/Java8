@@ -348,6 +348,84 @@ module "vpc" {
   public_subnets  = ["10.0.101.0/24", "10.0.102.0/24"]
 }
 
+Explanation: 
+
+VPC = Virtual Private Cloud 
+your own private network in AWS
+
+module "vpc" {
+  # use community module from registry ✅
+  # no need to write VPC code yourself ✅
+  source  = "terraform-aws-modules/vpc/aws"
+  version = "5.0.0"
+
+  name = "order-vpc"        # VPC name ✅
+
+  cidr = "10.0.0.0/16"
+  # your network IP range ✅
+  # 10.0.0.0 to 10.0.255.255 ✅
+  # 65,536 IP addresses available ✅
+
+  azs = ["us-east-1a", "us-east-1b"]
+  # two availability zones ✅
+  # high availability ✅
+  # if one AZ goes down → other works ✅
+
+  private_subnets = ["10.0.1.0/24", "10.0.2.0/24"]
+  # subnets NOT accessible from internet ❌
+  # ECS tasks live here ✅
+  # Aurora DB lives here ✅
+  # 256 IPs per subnet ✅
+  # one per AZ ✅
+
+  public_subnets = ["10.0.101.0/24", "10.0.102.0/24"]
+  # subnets accessible from internet ✅
+  # ALB lives here ✅
+  # 256 IPs per subnet ✅
+  # one per AZ ✅
+  
+IP address = 4 numbers separated by dots ✅
+192.168.1.1
+ ↑   ↑  ↑ ↑
+ 8   8  8  8 bits = 32 bits total ✅
+
+/16 means:
+→ first 16 bits are FIXED ✅
+→ last 16 bits are FREE to use ✅
+→ 2^16 = 65,536 addresses ✅
+
+/24 means:
+→ first 24 bits are FIXED ✅
+→ last 8 bits are FREE ✅
+→ 2^8 = 256 addresses ✅
+  
+  
+10.0.0.0/16
+
+10  .  0  .  0  .  0
+↑      ↑     ↑     ↑
+fixed  fixed FREE  FREE
+|-----------|-------|
+  16 bits    16 bits
+             ↑
+             65,536 addresses ✅
+
+10.0.1.0/24
+
+10  .  0  .  1  .  0
+↑      ↑     ↑     ↑
+fixed  fixed fixed FREE
+|------------|-----|
+   24 bits    8 bits
+              ↑
+              256 addresses ✅
+  
+  VPC 1 (payment):   10.0.0.0/16 ✅
+  VPC 2 (order):     10.1.0.0/16 ✅
+  VPC 3 (inventory): 10.2.0.0/16 ✅
+  
+}
+
 # ECR Repository
 resource "aws_ecr_repository" "order_service" {
   name = "order-service"
