@@ -350,18 +350,49 @@ List<Product> findBySize(@Param("size") String size);
 
 ### JSONB operators quick reference
 ```
-->    extract as JSON    data->'status'        → "PAID"
-->>   extract as TEXT    data->>'status'       → PAID
-#>    path as JSON       data#>'{a,b}'         → "NYC"
-#>>   path as TEXT       data#>>'{a,b}'        → NYC
-@>    contains           data @> '{"s":"PAID"}'
-<@    contained by       '{"s":"PAID"}' <@ data
+-- row 1
+id = 1
+name = "Kiyan"
+data = {              ← this is the 'data' column ✅
+  "city": "NYC",
+  "address": {
+    "street": "Main St"
+  }
+}
+
+-- row 2
+id = 2
+name = "Ravi"
+data = {              ← this is the 'data' column ✅
+  "city": "Ohio",
+  "address": {
+    "street": "Park Ave"
+  }
+}
+
+->    extract as JSON    data ->'status'        → "PAID"
+->>   extract as TEXT    data ->>'status'       → PAID
+#>    path as JSON       data #> '{address,street}'  → "NYC"
+#>>   path as TEXT       data #>> '{address,street}' → NYC
+@>    contains           data @> '{"status":"PAID"}'; → returns rows where status = PAID ignores other fields. is status contains PAID
+<@    contained by       '{"s":"PAID"}' <@ data → is PAID contained in status.
 ?     key exists         data ? 'status'
-?|    any key exists     data ?| array['a','b']
-?&    all keys exist     data ?& array['a','b']
-||    merge JSON         data || '{"k":"v"}'
+?|    any key exists     data ?| array['status','name'] -> ?|  = does ANY of these keys exist?
+?&    all keys exist     data ?& array['status','amount'] -> ALL keys exist
+||    merge JSON         data || '{"k":"v"}' -> || = merge two JSON objects → combine two JSONs into one  →  if key exists overwrite it , if key is new add it.
+
+                -- update JSON field ✅
+                UPDATE orders
+                SET data = data || '{"status":"PAID"}'
+                WHERE id = 1;
+                
+                -- before: {"status":"PENDING","amount":100} ✅
+                -- after:  {"status":"PAID","amount":100} ✅
+                -- amount kept ✅
+                -- status updated ✅
+
 -     delete key         data - 'status'
-#-    delete path        data #- '{a,b}'
+#-    delete path        data #- '{address,zip}' => for nested delete zip from address.
 ```
 
 ---
