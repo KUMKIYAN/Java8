@@ -551,6 +551,33 @@ output "alb_dns" {
 output "ecr_url" {
   value = aws_ecr_repository.order_service.repository_url
 }
+
+----Extra notes on available auto scaling ----------
+
+ECSServiceAverageCPUUtilization		ECS			CPU heavy ✅
+ECSServiceAverageMemoryUtilization	ECS			Memory heavy ✅
+ALBRequestCountPerTarget			ECS+ALB		High traffic ✅
+ASGAverageCPUUtilization			EC2			EC2 scaling ✅
+DynamoDBReadCapacityUtilization		DynamoDB	DB scaling ✅
+RDSReaderAverageCPUUtilization		RDS			DB scaling ✅
+Custom metric						Any			Kafka lag, SQS ✅
+
+
+customized_metric_specification {
+  metric_name = "payment.authorization.count"
+  namespace   = "PaymentService"
+  statistic   = "Average"
+  unit        = "Count"
+}
+
+# Kafka consumer lag ✅
+customized_metric_specification {
+  metric_name = "KafkaConsumerLag"
+  namespace   = "PaymentService"
+  statistic   = "Sum"
+}
+
+----------------------------------------------------
 ```
 
 ---

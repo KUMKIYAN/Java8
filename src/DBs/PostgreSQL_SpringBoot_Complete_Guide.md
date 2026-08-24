@@ -562,3 +562,17 @@ CREATE INDEX idx_orders_metadata ON orders USING GIN(metadata); -- JSONB index
 | **Composite PK** | `@EmbeddedId` or `@IdClass` |
 | **@JoinTable** | Creates join table for ManyToMany — no extra @Entity needed |
 | **HikariCP default pool** | `maximum-pool-size=10`, `minimum-idle=10` |
+
+
+AI Interview
+
+CHAR    = fixed length — Y/N, codes ✅
+VARCHAR = variable — name, status ✅
+TEXT    = unlimited — descriptions ✅
+
+INNER JOIN = matching rows only ✅
+LEFT JOIN  = all left + NULL right ✅
+Subquery   = query inside query ✅
+= use for complex filters ✅
+= slower than JOIN ✅
+
