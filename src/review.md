@@ -89,3 +89,88 @@ Agile:
 → unblocking team members ✅"
 
 
+------------------------------------------------------------------------------------
+
+A = Authentication + API design ✅
+C = Concurrency + async ✅
+I = Idempotency ✅
+D = DB optimization ✅
+S = Scaling + infra ✅
+I = Integration + recovery ✅
+
+Client
+↓ JWT + rate limit
+API Gateway
+↓ 202 Accepted
+Payment API (Virtual Threads)
+↓ idempotency check
+Redis (fast duplicate check)
+↓ publish
+Kafka (order-payment-events)
+↓ consume
+Payment Consumer Service
+↓ Outbox pattern
+Aurora (writer endpoint)
+↓ schedule publish
+Kafka
+↓ downstream
+Notification + Settlement
+
+
+Step 1 — A: Authentication (JWT) ✅
+"First secure the API"
+→ JWT validation at API Gateway ✅
+→ rate limiting per client ✅
+→ 429 Too Many Requests on exceed ✅
+
+Step 2 — C: Concurrency + Async ✅
+"Handle 10k-30k requests"
+→ Virtual Threads ✅
+millions of lightweight threads ✅
+→ CompletableFuture ✅
+async processing ✅
+→ Kafka for async ✅
+API receives → publishes to Kafka ✅
+consumer processes payment ✅
+client gets 202 Accepted ✅
+
+Step 3 — I: Idempotency ✅
+"No duplicate transactions"
+→ idempotency key in header ✅
+X-Idempotency-Key: UUID ✅
+→ check DB before processing ✅
+→ duplicate → return same response ✅
+→ Redis for fast lookup ✅
+→ DB unique constraint ✅
+
+Step 4 — D: DB optimization ✅
+"Fast DB operations"
+→ HikariCP connection pool ✅
+→ indexes on payment columns ✅
+→ EXPLAIN ANALYZE slow queries ✅
+→ select only required columns ✅
+→ avoid N+1 — JOIN FETCH ✅
+→ CQRS — separate read/write ✅
+write → Aurora writer ✅
+read → Aurora reader ✅
+→ Outbox Pattern ✅
+save + event same transaction ✅
+
+Step 5 — S: Scaling + Infra ✅
+"Handle spikes 30k/sec"
+→ horizontal scaling ECS ✅
+→ auto scaling CPU > 70% ✅
+→ ALB distributes traffic ✅
+→ Kafka partitions ✅
+parallel consumption ✅
+
+Step 6 — I: Integration + Recovery ✅
+"Failure handling"
+→ Circuit Breaker (Resilience4j) ✅
+payment gateway down → fallback ✅
+→ @RetryableTopic DLT ✅
+failed → retry → DLT ✅
+→ DLQ monitoring + alerts ✅
+→ CloudWatch + PagerDuty ✅
+
+------------------------------------------------------------------------------------
