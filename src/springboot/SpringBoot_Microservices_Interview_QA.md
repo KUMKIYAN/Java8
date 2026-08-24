@@ -990,3 +990,49 @@ public Order getOrder(Long id) {
 | Saga types | Choreography = distributed. Orchestration = centralized |
 | Service Discovery | Eureka — register + heartbeat + query ✅ |
 | API Gateway | Single entry + auth + rate limit + routing |
+
+
+
+Interview question:
+
+what is wrong in this code
+
+public class PaymentException extends Exception {
+public PaymentException(String msg) { super(msg); }
+}
+
+@Service
+public class OrderService {
+
+    @Autowired
+    private OrderRepository orderRepository;
+ 
+    @Transactional(rollbackFor = PaymentException)
+    public void processOrder(Order order) throws PaymentException {
+        orderRepository.save(order);
+        if (paymentFailed()) {
+            throw new PaymentException("Payment service down");
+        }
+    }
+
+---------------------
+
+@Service
+public class OrderService {
+
+    @Autowired
+    private OrderRepository orderRepository;
+ 
+    @Transactional(rollbackFor = PaymentException)
+    public void processOrder(Order order, AuditInfo auditInfo) throws PaymentException {
+        orderRepository.save(order);
+        this.logAudit(auditInfo);
+    }
+
+    @Transactional(Propogation = REQUIRED_NEW)
+    public void logAudit(AuditInfo auditInfo) {
+        orderRepository.save(audit);
+    }
+}
+
+----------------------
