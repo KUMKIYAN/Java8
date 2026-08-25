@@ -62,7 +62,8 @@ public class OrderService {
 ```
 @Transactional:
 → atomicity — all operations succeed or all fail ✅
-→ if any exception → entire transaction rolled back ✅
+→ if any Runtime exception → entire transaction rolled back ✅
+→ for checked Exception → explictily define @Transactional(rollbackFor = PaymentException.class)
 → if success -> auto commit
 
 Propagation types:
