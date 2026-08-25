@@ -66,15 +66,6 @@ public class OrderService {
 → for checked Exception → explictily define @Transactional(rollbackFor = PaymentException.class)
 → if success -> auto commit
 
-Propagation types:
-→ REQUIRED      → use existing or create new (DEFAULT) ✅
-→ REQUIRES_NEW  → always create new transaction
-→ NESTED        → nested within existing
-→ MANDATORY     → must have existing transaction
-→ SUPPORTS      → use existing if available
-→ NOT_SUPPORTED → suspend existing transaction
-→ NEVER         → must not have transaction
-
 Self invocation problem:
 → Spring creates PROXY around class
 → external calls → proxy intercepts → @Transactional applied ✅
@@ -85,6 +76,17 @@ Fix:
 → move method to separate class ✅
 → Inject self via @Autowired ✅
 → inject self via ApplicationContext ✅
+
+Propagation types:
+→ REQUIRED      → use existing or create new (DEFAULT) ✅
+→ REQUIRES_NEW  → always create new transaction
+→ NESTED        → nested within existing
+→ MANDATORY     → must have existing transaction
+→ SUPPORTS      → use existing if available
+→ NOT_SUPPORTED → suspend existing transaction
+→ NEVER         → must not have transaction
+
+
 ```
 
 ```java
