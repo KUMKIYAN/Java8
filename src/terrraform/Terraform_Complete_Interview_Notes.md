@@ -362,6 +362,7 @@ module "vpc" {
   name = "order-vpc"        # VPC name ✅
 
   cidr = "10.0.0.0/16"
+  # Classless Inter-Domain Routing
   # your network IP range ✅
   # 10.0.0.0 to 10.0.255.255 ✅
   # 65,536 IP addresses available ✅
