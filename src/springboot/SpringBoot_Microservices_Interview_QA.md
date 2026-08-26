@@ -78,13 +78,13 @@ Fix:
 → inject self via ApplicationContext ✅
 
 Propagation types:
-→ REQUIRED      → use existing or create new (DEFAULT) ✅
-→ REQUIRES_NEW  → always create new transaction
-→ NESTED        → nested within existing
-→ MANDATORY     → must have existing transaction
-→ SUPPORTS      → use existing if available
-→ NOT_SUPPORTED → suspend existing transaction
-→ NEVER         → must not have transaction
+→ REQUIRED      → use existing or create new (DEFAULT) ✅ - placeOrder and chargeAmount
+→ REQUIRES_NEW  → always create new transaction           - placeOrder and logAudit 
+→ NESTED        → nested within existing                  - placeOrder (saveOrder) and chargeAmount  
+→ MANDATORY     → must have existing transaction          - placeOrder and chargeAmount
+→ SUPPORTS      → use existing if available               - placeOrder and getProduct
+→ NOT_SUPPORTED → suspend existing transaction            - placeOrder and generateReport
+→ NEVER         → must not have transaction               - placeOrder and generateReport  
 
 
 ```
