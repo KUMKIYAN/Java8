@@ -183,6 +183,208 @@ ResponseEntity.badRequest()
 ResponseEntity.notFound()
 
 
+### Invalidate Cache — simple explanation
+
+---
+
+### What is cache invalidation
+```
+Cache invalidation =
+removing or refreshing
+stale data from cache ✅
+
+When to invalidate:
+→ data updated in DB ✅
+→ data deleted ✅
+→ TTL expired ✅
+→ manual trigger ✅
+```
+
+---
+
+### Ways to invalidate
+
+```java
+// ── 1. @CacheEvict — remove specific ✅ ──────────────────────
+@Service
+public class OrderService {
+
+    // remove one entry ✅
+    @CacheEvict(
+        value = "orders",
+        key   = "#orderId")
+    public void updateOrder(
+            String orderId, Order order) {
+        orderRepo.save(order);
+        // cache entry removed ✅
+        // next call → fresh from DB ✅
+    }
+
+    // remove ALL entries ✅
+    @CacheEvict(
+        value     = "orders",
+        allEntries = true) // ✅
+    public void clearAllOrders() {
+        // entire cache cleared ✅
+    }
+}
+
+// ── 2. @CachePut — update cache ✅ ───────────────────────────
+// updates cache without removing ✅
+@CachePut(
+    value = "orders",
+    key   = "#order.orderId")
+public Order updateOrder(Order order) {
+    Order saved = orderRepo.save(order);
+    return saved; // cache updated ✅
+}
+
+// ── 3. TTL — auto expire ✅ ───────────────────────────────────
+@Bean
+public CacheManager cacheManager() {
+    CaffeineCacheManager manager =
+            new CaffeineCacheManager();
+    manager.setCaffeine(
+        Caffeine.newBuilder()
+            .maximumSize(1000)
+            .expireAfterWrite(
+                Duration.ofMinutes(30)) // TTL ✅
+            // auto invalidated after 30min ✅
+    );
+    return manager;
+}
+
+// ── 4. Manual endpoint ✅ ─────────────────────────────────────
+@RestController
+@RequiredArgsConstructor
+public class CacheController {
+
+    private final CacheManager cacheManager;
+
+    // clear specific cache ✅
+    @DeleteMapping("/cache/{cacheName}")
+    public ResponseEntity<String> clearCache(
+            @PathVariable String cacheName) {
+
+        Cache cache = cacheManager
+                .getCache(cacheName);
+
+        if (cache != null) {
+            cache.clear(); // ✅
+            return ResponseEntity.ok(
+                "Cache cleared: " + cacheName);
+        }
+        return ResponseEntity
+                .notFound().build();
+    }
+
+    // clear specific key ✅
+    @DeleteMapping("/cache/{cacheName}/{key}")
+    public ResponseEntity<String> clearKey(
+            @PathVariable String cacheName,
+            @PathVariable String key) {
+
+        Cache cache = cacheManager
+                .getCache(cacheName);
+
+        if (cache != null) {
+            cache.evict(key); // ✅
+            return ResponseEntity.ok(
+                "Key evicted: " + key);
+        }
+        return ResponseEntity
+                .notFound().build();
+    }
+}
+
+// ── 5. Redis invalidation ✅ ──────────────────────────────────
+@Service
+@RequiredArgsConstructor
+public class RedisCacheService {
+
+    private final RedisTemplate<String, Object>
+            redisTemplate;
+
+    // delete specific key ✅
+    public void invalidate(String key) {
+        redisTemplate.delete(key); // ✅
+    }
+
+    // delete by pattern ✅
+    public void invalidatePattern(
+            String pattern) {
+        Set<String> keys = redisTemplate
+                .keys(pattern + "*"); // ✅
+        if (keys != null) {
+            redisTemplate.delete(keys); // ✅
+        }
+    }
+}
+```
+
+---
+
+### Real example — DHL transportation
+```java
+// your real example ✅
+@Service
+public class TransportationService {
+
+    // cache partners ✅
+    @Cacheable(
+        value = "partners",
+        key   = "#origin + '-' + #destination")
+    public List<Partner> getPartners(
+            String origin,
+            String destination) {
+        return partnerRepo
+                .findByRoute(origin, destination);
+    }
+
+    // add partner → invalidate cache ✅
+    @CacheEvict(
+        value     = "partners",
+        allEntries = true) // ✅
+    public void addPartner(Partner partner) {
+        partnerRepo.save(partner);
+        // cache cleared ✅
+        // next call → fresh from DB ✅
+    }
+
+    // update partner → invalidate ✅
+    @CacheEvict(
+        value     = "partners",
+        allEntries = true)
+    public void updatePartner(Partner partner) {
+        partnerRepo.save(partner);
+    }
+}
+```
+
+---
+
+### Strategies summary
+
+| Strategy | When | How |
+|---|---|---|
+| `@CacheEvict` | On update/delete ✅ | Remove entry ✅ |
+| `@CachePut` | On update ✅ | Refresh entry ✅ |
+| TTL | Auto expire ✅ | Time based ✅ |
+| Manual endpoint | On demand ✅ | REST call ✅ |
+| Redis delete | Distributed ✅ | By key/pattern ✅ |
+
+---
+
+### One line
+```
+Cache invalidation =
+remove stale data ✅
+use @CacheEvict on update/delete ✅
+TTL for auto expiry ✅
+manual endpoint for on-demand ✅
+```
+
+
 
 
 
