@@ -488,3 +488,38 @@ Production:
 | Choose Kafka | High throughput + multiple consumers + replay ✅ |
 | Choose REST | Immediate response + simple CRUD ✅ |
 | API ownership | OpenAPI + idempotency + monitoring + on-call ✅ |
+
+## WAF Protect From 
+```
+→ SQL Injection ✅
+attacker sends: ' OR 1=1 --
+WAF blocks ✅
+
+→ XSS (Cross Site Scripting) ✅
+attacker sends: <script>alert()</script>
+WAF blocks ✅
+
+→ DDoS attacks ✅
+thousands of requests ✅
+WAF rate limits ✅
+
+→ Bot attacks ✅
+automated scraping ✅
+WAF detects + blocks ✅
+
+→ IP blocking ✅
+known bad IPs blocked ✅
+
+→ Geo blocking ✅
+block specific countries ✅
+```
+
+```
+This is configured using Terraform and attach to API gateway.
+
+WAF = security guard
+that reads request content ✅
+blocks SQL injection, XSS (cross site script),
+bots, DDoS attacks ✅
+sits in front of API Gateway ✅
+```
