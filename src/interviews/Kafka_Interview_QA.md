@@ -82,6 +82,13 @@ Rebalance triggers: new consumer joins, consumer crashes, partition count change
 During rebalance: ALL consumers STOP. partitions reassigned. resume after.
 Duplicate risk: processed but not committed. another consumer reprocesses.
 Fix: static group membership. group.instance.id + session.timeout.ms=30000
+With group.instance.id = "payment-consumer-1":
+    → consumer restarts ✅
+    → same ID "payment-consumer-1" ✅
+    → Kafka recognises same consumer ✅
+    → NO rebalancing ✅
+    → gets SAME partition back ✅
+    → continues from last offset ✅
 ```
 ---
 
