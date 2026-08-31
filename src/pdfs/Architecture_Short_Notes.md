@@ -14,6 +14,17 @@ Code Review-  requirements | N+1+indexes | no hardcoded creds | design patterns
 CI/CD-        Jenkins | build→test→sonar→deploy | Blue-Green | zero downtime
 Monitoring-   CloudWatch+Splunk | PagerDuty | health endpoints | dashboards
 ```
+### Tech stack choices
+```
+Backend:   Java 21 + Spring Boot ✅
+Messaging: Kafka (async) / REST (sync) ✅
+DB:        Aurora PostgreSQL / MySQL ✅
+Cache:     Caffeine / Redis ✅
+Cloud:     AWS ECS + Fargate ✅
+IaC:       Terraform ✅
+CI/CD:     Jenkins Blue-Green ✅
+Monitor:   CloudWatch + Splunk ✅
+```
 
 ---
 
