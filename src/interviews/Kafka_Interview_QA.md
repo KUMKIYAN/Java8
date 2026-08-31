@@ -14,6 +14,57 @@ Three layers:
 2. Consumer: manual commit + idempotency check
 3. Kafka transactions: executeInTransaction + read_committed
 
+read_committed:
+→ consumer reads ONLY committed messages ✅
+→ skips uncommitted/aborted ✅
+→ no dirty reads ✅
+
+// Producer — executeInTransaction ✅
+@Service
+public class OrderService {
+
+    private final KafkaTemplate<String, Object>
+            kafkaTemplate;
+
+    public void processOrder(Order order) {
+
+        // all sends in ONE transaction ✅
+        kafkaTemplate.executeInTransaction(
+                operations -> {
+
+            // send to order topic ✅
+            operations.send(
+                "order-events",
+                order.getOrderId(),
+                order);
+
+            // send to payment topic ✅
+            operations.send(
+                "payment-events",
+                order.getOrderId(),
+                PaymentEvent.from(order));
+
+            // send to inventory topic ✅
+            operations.send(
+                "inventory-events",
+                order.getOrderId(),
+                InventoryEvent.from(order));
+
+            // all three committed together ✅
+            // any failure → all rolled back ✅
+            return true;
+        });
+    }
+}
+
+// Consumer — read_committed ✅
+spring:
+kafka:
+consumer:
+isolation-level: read_committed
+# only reads committed messages ✅
+# skips aborted transactions ✅
+
 ---
 
 ## Q2. Consumer Group and Rebalance
