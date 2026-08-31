@@ -171,6 +171,34 @@ Internal flow:
 @Value - single property - supports SpEL - default values - scattered
 @ConfigurationProperties - grouped - centralized config - supports validation @Validated - Prefix - nested objects
 
+1. prefix binding ✅
+   → prefix = "payment"
+   → binds all payment.* properties ✅
+
+2. type safe ✅
+   → compile time check ✅
+   → IDE auto complete ✅
+   → no typos at runtime ✅
+
+3. supports nested objects ✅
+   → payment.gateway.url ✅
+   → payment.gateway.timeout ✅
+
+4. supports lists ✅
+   → payment.supported-currencies[0]=USD ✅
+   → payment.supported-currencies[1]=GBP ✅
+
+5. @Validated ✅
+   → add validation on properties ✅
+   → @NotNull, @Min, @Max ✅
+   → fails fast on startup ✅
+
+6. Difference from @Value:
+   → @Value = single property ✅
+   → @ConfigurationProperties = group ✅
+   → @ConfigurationProperties = type safe ✅
+   → @ConfigurationProperties = testable ✅
+
 @Transactional(readOnly=true) - READ REPLICA - no dirty checking - no entity snapshots - better performance
 readOnly = false - routes to WRITER - FlushMode.AUTO - tracks - commits
 
