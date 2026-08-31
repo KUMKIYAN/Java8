@@ -231,7 +231,7 @@ Debezium alternative: CDC watches outbox table. publishes automatically. no sche
 ---
 
 ## Q6. Producer Producing Messages Slowly - How to Debug
-
+```
 Step 1 - Check metrics:
 /actuator/metrics/kafka.producer.record.send.rate
 kafka.producer.request.latency.avg
@@ -284,7 +284,7 @@ slow serializer        = use JSON or Avro
 broker overloaded      = scale brokers
 network high latency   = check connectivity
 message size too large = compress or split
-
+```
 ---
 
 ## Quick Reference
