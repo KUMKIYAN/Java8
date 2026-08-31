@@ -130,8 +130,8 @@ Security layers:
 6. API Security ✅
 → rate limiting ✅
 → 429 Too Many Requests ✅
-→ CORS configuration ✅
-→ CSRF disabled for JWT ✅
+→ CORS configuration -> Cross-Origin Resource Sharing - which domains are allowed to make API call ✅.
+→ CSRF disabled for JWT -> Cross-Site Request Forgery - Attacker trick uses logged-in user's browser make to make unwanted calls ✅. 
 → no sensitive data in logs ✅
 → no sensitive data in URLs ✅
 
