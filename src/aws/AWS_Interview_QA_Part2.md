@@ -11,7 +11,7 @@ Secrets Manager:
 → stores secrets — DB passwords, API keys ✅
 → no hardcoded secrets in code ✅
 → auto rotation of secrets ✅
-→ encryption at rest (KMS) ✅
+→ encryption at rest (KMS) ✅ -> Key Management Service - nobody can read.
 → audit trail (CloudTrail) ✅
 → versioning of secrets ✅
 → IAM role based access — no access keys needed ✅
