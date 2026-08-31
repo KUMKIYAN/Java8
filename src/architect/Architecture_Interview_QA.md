@@ -19,7 +19,7 @@ Step 1 — Requirement Understanding:
 
 Step 2 — Design:
 → identify microservices needed ✅
-→ define API contracts (OpenAPI 3.0) ✅
+→ define API contracts (OpenAPI 3.0) - API Design First Approach ✅
 → choose DB (SQL vs NoSQL) ✅
 → choose messaging (Kafka vs REST) ✅
 → define data models ✅
