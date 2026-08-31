@@ -89,6 +89,32 @@ With group.instance.id = "payment-consumer-1":
     → NO rebalancing ✅
     → gets SAME partition back ✅
     → continues from last offset ✅
+How it works
+Multiple consumers = multiple unique IDs ✅
+
+Consumer 1: group.instance.id = payment-consumer-1 ✅
+Consumer 2: group.instance.id = payment-consumer-2 ✅
+Consumer 3: group.instance.id = payment-consumer-3 ✅
+
+Each ID is UNIQUE ✅
+Kafka maps ID → partition ✅
+
+payment-consumer-1 → Partition 0 ✅
+payment-consumer-2 → Partition 1 ✅
+payment-consumer-3 → Partition 2 ✅
+
+Consumer 2 restarts:
+→ comes back with
+  group.instance.id =
+  payment-consumer-2 ✅
+→ Kafka recognises same ID ✅
+→ gives back Partition 1 ✅
+→ no rebalancing ✅
+
+Consumer 1 + 3 unaffected ✅
+→ still processing ✅
+→ no pause ✅
+
 ```
 ---
 
