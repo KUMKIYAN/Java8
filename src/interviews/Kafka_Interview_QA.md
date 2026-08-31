@@ -69,7 +69,7 @@ isolation-level: read_committed
 ---
 
 ## Q2. Consumer Group and Rebalance
-
+```
 Consumer group = consumers sharing same task.
 Each partition assigned to ONE consumer only.
 
@@ -82,7 +82,7 @@ Rebalance triggers: new consumer joins, consumer crashes, partition count change
 During rebalance: ALL consumers STOP. partitions reassigned. resume after.
 Duplicate risk: processed but not committed. another consumer reprocesses.
 Fix: static group membership. group.instance.id + session.timeout.ms=30000
-
+```
 ---
 
 ## Q3. @KafkaListener with Acknowledgment vs without
@@ -100,7 +100,7 @@ With Ack (manual commit):
 - AT LEAST ONCE - recommended for production
 
 Code:
-
+```
 @KafkaListener(topics = "order-events")
 public void consume(ConsumerRecord<String, OrderEvent> record, Acknowledgment ack) {
     try {
@@ -115,7 +115,7 @@ public void consume(ConsumerRecord<String, OrderEvent> record, Acknowledgment ac
 application.yml:
 spring.kafka.consumer.enable-auto-commit: false
 spring.kafka.listener.ack-mode: MANUAL
-
+```
 ---
 
 ## Q4. @RetryableTopic and @DltHandler
@@ -132,7 +132,7 @@ order-events-dlt (dead letter)
 @DltHandler: called when all retries exhausted. log + alert + store poison messages.
 
 Code:
-
+```
 @RetryableTopic(
     attempts = "4",
     backoff = @Backoff(delay = 1000, multiplier = 2.0),
@@ -152,7 +152,7 @@ public void handleDlt(OrderEvent event,
     alertService.notifyTeam(event);
     poisonMessageRepo.save(event);
 }
-
+```
 ---
 
 ## Q5. Outbox Pattern
@@ -165,7 +165,7 @@ Scheduler picks unpublished events and publishes.
 Eventual consistency because scheduler runs at intervals.
 
 Code:
-
+```
 @Transactional
 public Order placeOrder(OrderRequest request) {
     Order order = orderRepository.save(toEntity(request));
@@ -194,7 +194,7 @@ public void publishOutboxEvents() {
 }
 
 Debezium alternative: CDC watches outbox table. publishes automatically. no scheduler needed.
-
+```
 ---
 
 ## Q6. Producer Producing Messages Slowly - How to Debug
