@@ -20,6 +20,7 @@ read_committed:
 → no dirty reads ✅
 
 // Producer — executeInTransaction ✅
+```
 @Service
 public class OrderService {
 
@@ -64,7 +65,7 @@ consumer:
 isolation-level: read_committed
 # only reads committed messages ✅
 # skips aborted transactions ✅
-
+```
 ---
 
 ## Q2. Consumer Group and Rebalance
