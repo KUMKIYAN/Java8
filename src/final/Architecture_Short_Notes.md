@@ -6,7 +6,7 @@
 
 ```
 Requirements- meet business | clarify edge cases | Confluence | sequence diagrams | sign-off
-Design-       microservices | OpenAPI contract | SQL/NoSQL | Kafka/REST | third party
+Design-       microservices | Define API contract | SQL/NoSQL | communication pattern | third party | resources
 Stories-      JIRA stories | story points | sprint planning | assign
 Development-  ask approach first | Spring Boot | Kafka | constructor injection | logging
 Testing-      JUnit+Mockito | Cucumber | 90% coverage | SonarQube
