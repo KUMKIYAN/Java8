@@ -451,7 +451,22 @@ Service discovery- Eureka: register on startup | heartbeat 30s | query for insta
 API Gateway-      single entry | routing | JWT auth | rate limit | throttling 429 | transform | WAF | versioning
 ECS vs K8s-       ECS=AWS only simple | K8s=multi-cloud complex powerful industry standard
 ```
+## Cache
+```
+What-          removing or refreshing stale data from cache ✅
+When-          data updated in DB | data deleted | TTL expired | manual trigger
 
+@CacheEvict-   remove one entry key="#orderId" | remove all allEntries=true | on update/delete
+@CachePut-     always update cache + DB | no skip | returns updated value
+TTL-           expireAfterWrite(30 min) | auto invalidated | Caffeine/Redis
+Manual endpoint- DELETE /cache/{name} → cache.clear() | DELETE /cache/{name}/{key} → cache.evict(key)
+Redis-         redisTemplate.delete(key) | keys(pattern+"*") → delete all matching
+
+Stale cache debug- check @Cacheable log | check TTL | check @CacheEvict missing | Redis multi-instance issue
+Stampede fix-  mutex lock | staggered TTL random seconds | background refresh scheduler
+
+Real example-  DHL transportation partners | cache by origin+destination | @CacheEvict on addPartner | next call fresh from DB
+```
 ---
 
 ## Quick Reference
