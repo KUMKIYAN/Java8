@@ -8,7 +8,7 @@
 Requirements- meet business | clarify edge cases | Confluence | sequence diagrams | sign-off
 Design-       Microservices | Define API contract | SQL/NoSQL | communication pattern | third party | resources
 Stories-      JIRA stories | story points | sprint planning | assign
-Development-  ask approach first | Spring Boot features | Kafka | constructor injection | exception | logging
+Development-  Ask approach first | Spring Boot / Java / Microservices features | Kafka | constructor injection | exception | logging
 Testing-      JUnit+Mockito | Cucumber | 90% coverage | SonarQube
 Code Review-  requirements | N+1+indexes | no hardcoded creds | design patterns | Demo | DS
 CI/CD-        Jenkins | build→test→sonar→deploy | Blue-Green | zero downtime
