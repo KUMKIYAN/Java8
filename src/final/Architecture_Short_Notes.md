@@ -6,9 +6,11 @@
 
 ```
 Requirements- meet business | clarify edge cases | Confluence | sequence diagrams | sign-off
-Design-       Microservices | Define API contract | SQL/NoSQL | communication pattern | third party | resources
+Design-       Microservices | Define API contract | SQL/NoSQL |CQRS | DCP | communication pattern 
+                            | third party | resources
 Stories-      JIRA stories | story points | sprint planning | assign
-Development-  Ask approach first | SpringBoot + Java + Microservices features | Kafka | constructor injection | exception | logs
+Development-  Ask approach first | SpringBoot + Java + Microservices features | Kafka | constructor injection 
+                           | exception | logs
 Testing-      JUnit+Mockito | Cucumber | 90% coverage | SonarQube
 Code Review-  requirements | N+1+indexes | no hardcoded creds | design patterns | Demo | DS
 CI/CD-        Jenkins | build→test→sonar→deploy | Blue-Green | zero downtime
@@ -46,10 +48,10 @@ Code Security-    SonarQube | no secrets Git | dependency check
 ## Q3. Kafka vs REST?
 
 ```
-Kafka-   async | no wait | millions TPS | multi consumer | fan-out | replay | audit | decouple
-REST-    sync | immediate | CRUD | auth code NOW | small payload | single consumer
+Kafka-   async | no wait | millions TPS | fan-out | replay | audit | decouple | casecade
+REST-    sync | immediate | CRUD  | tight coupled | casecade | Auth NOW | Stock | Fraud
 
-Kafka real- order→payment+inventory+notify | shipment→capture | OMS→payment | Outbox
+Kafka real- order→payment+inventory+notify | shipment→capture | Outbox
 REST real-  Bluefin VaultID | Chase auth | ACI fraud | GET order
 ```
 
@@ -60,7 +62,7 @@ REST real-  Bluefin VaultID | Chase auth | ACI fraud | GET order
 ```
 Design-      OpenAPI first | req/res models | error codes | auth | share frontend | parallel dev
 Development- endpoints | @Valid | @ControllerAdvice | logging | idempotency | pagination
-Testing-     unit+integration+Cucumber | happy+error+boundary | load+security
+Testing-     unit+integration+Cucumber | happy+error+boundary condition | load+security
 Docs-        Swagger UI | OpenAPI annotations | Confluence | Postman collection
 Deploy-      Jenkins | dev→stage→UAT→prod | Blue-Green | zero downtime
 Production-  CloudWatch+Splunk | PagerDuty | first on call | RCA→fix→prevent
@@ -71,7 +73,7 @@ Versioning-  /v1 /v2 | backward compat | @deprecated | sunset old
 
 ## WAF protects-
 ```
-SQL inject | XSS | DDoS | bots | IP block | geo block | sits front of API Gateway | Terraform
+SQL inject | XSS | DDoS | bots | Bad IP block | geo block | sits front of API Gateway | Terraform
 ```
 
 # AWS — Short Notes (All 3 Parts Combined)
@@ -260,8 +262,8 @@ DynamoDB-     sessions/carts | GSI anytime | TTL free
 ## Dependency Injection
 
 ```
-Field injection-       uses reflection | breaks without Spring | hard to test | hides dependencies
-Constructor injection- recommended | final fields | works without Spring | Lombok @RequiredArgsConstructor
+Field injection-       uses reflection | breaks without Spring | hard to test | refactor | hides dependencies
+Constructor injection- recommended | final fields | works without Spring | Lombok @RequiredArgsConstructor | refactor
 Setter injection-      optional deps only | @Autowired(required=false)
 @Primary-              default bean when multiple same type | one per type only
 @Qualifier-            specific bean by name | overrides @Primary | on injection point
@@ -298,6 +300,7 @@ Auto config flow-        reads META-INF/spring/AutoConfiguration.imports | evalu
 ```
 @Value-                  single property | SpEL support | default value ${prop:default} | field level
 @ConfigurationProperties- group of properties | prefix binding | type safe | @Valid support | nested objects | recommended
+                          app.order -> maxRetry, timeout, Db.host.port
 @Profile-                load beans per env | @Profile("dev") @Profile("prod") @Profile("!prod")
 Profiles-                application-dev.yml | application-prod.yml | SPRING_PROFILES_ACTIVE=prod
 @RefreshScope-           refresh bean without restart | /actuator/refresh | Spring Cloud Bus = broadcast all pods
