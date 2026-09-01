@@ -8,7 +8,7 @@
 Requirements- meet business | clarify edge cases | Confluence | sequence diagrams | sign-off
 Design-       Microservices | Define API contract | SQL/NoSQL | communication pattern | third party | resources
 Stories-      JIRA stories | story points | sprint planning | assign
-Development-  Ask approach first | Spring Boot / Java / Microservices features | Kafka | constructor injection | exception | logging
+Development-  Ask approach first | SpringBoot + Java + Microservices features | Kafka | constructor injection | exception | logs
 Testing-      JUnit+Mockito | Cucumber | 90% coverage | SonarQube
 Code Review-  requirements | N+1+indexes | no hardcoded creds | design patterns | Demo | DS
 CI/CD-        Jenkins | build→test→sonar→deploy | Blue-Green | zero downtime
@@ -31,14 +31,14 @@ Monitor:   CloudWatch + Splunk ✅
 ## Q2. How to secure application?
 
 ```
-Authentication-   JWT | API Gateway rate limit | Spring Security | BCrypt
+Authentication-   Spring Security | JWT | BCrypt 
 Authorization-    @PreAuthorize | @hasRole | method level | least privilege
 Data Security-    BCrypt hash | PCI DSS | Bluefin token | Secrets Manager | KMS
 Transport-        HTTPS | TLS 1.2+ | SSL cert | ACM
 Input Validation- @Valid | @NotNull | @Pattern | no SQL inject | no XSS
-API Security-     rate limit→429 | CORS=domain allow | CSRF=fake req | no logs sensitive
-Infrastructure-   IAM minimal | VPC private | security group | WAF | rotate secrets
-Code Security-    SonarQube | OWASP | no secrets Git | dependency check
+API Security-     rate limit→429 | CORS=domain allow | CSRF=fake req | do not log sensitive
+Infrastructure-   IAM minimal | VPC  | security group | WAF | rotate secrets
+Code Security-    SonarQube | no secrets Git | dependency check
 ```
 
 ---
