@@ -6,11 +6,11 @@
 
 ```
 Requirements- meet business | clarify edge cases | Confluence | sequence diagrams | sign-off
-Design-       microservices | Define API contract | SQL/NoSQL | communication pattern | third party | resources
+Design-       microservices | API-First & Design-Led Thinking | SQL/NoSQL | communication pattern | third party | resources
 Stories-      JIRA stories | story points | sprint planning | assign
-Development-  ask approach first | Spring Boot | Kafka | constructor injection | logging
+Development-  ask approach first | Spring Boot features | Kafka | constructor injection | exception | logging
 Testing-      JUnit+Mockito | Cucumber | 90% coverage | SonarQube
-Code Review-  requirements | N+1+indexes | no hardcoded creds | design patterns
+Code Review-  requirements | N+1+indexes | no hardcoded creds | design patterns | Demo | DS
 CI/CD-        Jenkins | build→test→sonar→deploy | Blue-Green | zero downtime
 Monitoring-   CloudWatch+Splunk | PagerDuty | health endpoints | dashboards
 ```
