@@ -303,7 +303,7 @@ Auto config flow-        reads META-INF/spring/AutoConfiguration.imports | evalu
                           app.order -> maxRetry, timeout, Db.host.port
 @Profile-                load beans per env | @Profile("dev") @Profile("prod") @Profile("!prod")
 Profiles-                application-dev.yml | application-prod.yml | SPRING_PROFILES_ACTIVE=prod
-@RefreshScope-           refresh bean without restart | /actuator/refresh | Spring Cloud Bus = broadcast all pods
+@RefreshScope-           refresh bean without restart | /actuator/refresh | /actuator/busrefresh / Spring Cloud Bus = broadcast all pods
 @ConditionalOnProperty-  bean created only if property matches | havingValue | matchIfMissing
 ```
 
@@ -319,6 +319,7 @@ mappedBy-           on PARENT side OneToMany | points to FIELD NAME in child | n
 @JoinColumn-        on CHILD side ManyToOne | creates FK column in child table
 @ManyToMany extra-  create explicit join entity with @EmbeddedId for extra columns
 save()-             null ID=INSERT(persist) | has ID=UPDATE(merge) | dirty check=auto UPDATE inside @Transactional
+                    persistence context | NOT sent to DB | flush | commit at the end of transaction
 saveAndFlush()-     SQL sent immediately | ID generated now | still rollbackable | use when need ID next step
 flush()-            sends pending SQL to DB | not committed | call save() first
 Optimistic lock-    @Version field | no DB lock | exception on conflict | retry with @Retryable
