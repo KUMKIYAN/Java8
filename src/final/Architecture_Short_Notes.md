@@ -6,15 +6,18 @@
 
 ```
 Requirements- meet business | clarify edge cases | Confluence | sequence diagrams | sign-off
-Design-       Microservices | Define API contract | SQL/NoSQL |CQRS | DCP | communication pattern 
-                            | third party | resources
-Stories-      JIRA stories | story points | sprint planning | assign
-Development-  Ask approach first | SpringBoot + Java + Microservices features | Kafka | constructor injection 
-                           | exception | logs
+Design-       Microservices | Define API contract | SQL/NoSQL |CQRS | DCP | Data models | 
+              communication pattern | third party | resources
+Stories-      JIRA | points | sprint planning | assign
+Development-  Ask approach first | SpringBoot + Java + Microservices features | Kafka | DS 
+              constructor injection | exception | logs
 Testing-      JUnit+Mockito | Cucumber | 90% coverage | SonarQube
 Code Review-  requirements | N+1+indexes | no hardcoded creds | design patterns | Demo | DS
 CI/CD-        Jenkins | build→test→sonar→deploy | Blue-Green | zero downtime
 Monitoring-   CloudWatch+Splunk | PagerDuty | health endpoints | dashboards
+Production-  First on call | RCA→fix→prevent
+Versioning-  /v1 /v2 | backward compat | @deprecated | sunset old
+
 ```
 ### Tech stack choices
 ```
@@ -35,10 +38,10 @@ Monitor:   CloudWatch + Splunk ✅
 ```
 Authentication-   Spring Security | JWT | BCrypt 
 Authorization-    @PreAuthorize | @hasRole | method level | least privilege
-Data Security-    BCrypt hash | PCI DSS | Bluefin token | Secrets Manager | KMS
+Data Security-    BCrypt hash | Bluefin token | Secrets Manager | KMS | do not log
 Transport-        HTTPS | TLS 1.2+ | SSL cert | ACM
 Input Validation- @Valid | @NotNull | @Pattern | no SQL inject | no XSS
-API Security-     rate limit→429 | CORS=domain allow | CSRF=fake req | do not log sensitive
+API Security-     rate limit→429 | CORS=domain allow | CSRF=fake req
 Infrastructure-   IAM minimal | VPC  | security group | WAF | rotate secrets
 Code Security-    SonarQube | no secrets Git | dependency check
 ```
@@ -57,33 +60,19 @@ REST real-  Bluefin VaultID | Chase auth | ACI fraud | GET order
 
 ---
 
-## Q4. End-to-end API ownership?
-
-```
-Design-      OpenAPI first | req/res models | error codes | auth | share frontend | parallel dev
-Development- endpoints | @Valid | @ControllerAdvice | logging | idempotency | pagination
-Testing-     unit+integration+Cucumber | happy+error+boundary condition | load+security
-Docs-        Swagger UI | OpenAPI annotations | Confluence | Postman collection
-Deploy-      Jenkins | dev→stage→UAT→prod | Blue-Green | zero downtime
-Production-  CloudWatch+Splunk | PagerDuty | first on call | RCA→fix→prevent
-Versioning-  /v1 /v2 | backward compat | @deprecated | sunset old
-```
-
----
-
 ## WAF protects-
 ```
 SQL inject | XSS | DDoS | bots | Bad IP block | geo block | sits front of API Gateway | Terraform
 ```
 
-# AWS — Short Notes (All 3 Parts Combined)
+# AWS — Short Notes
 
 ---
 
 ## Compute
 
 ```
-EC2-          virtual machine | self managed | OS patch | GPU/ML | predictable traffic | IAM instance level
+EC2-          virtual machine |  GPU/ML | predictable traffic | IAM instance level | self managed | OS patch 
 ECS Fargate-  serverless containers | AWS managed | auto scale | pay per task | per task IAM | microservices
 ECS EC2-      you manage servers | cheaper steady traffic | spot instances | more control
 ECS concepts- Cluster=group services and Tasks | TaskDef=blueprint | Task=running container | Service=manages tasks | ECR=registry
@@ -106,9 +95,9 @@ Limits-       15min | 10GB RAM | 6MB payload | 4KB ENV | 1000 concurrent | no st
 ## SQS vs SNS vs EventBridge
 
 ```
-SQS-          queue | pull based | 14 days retention | DLQ | one consumer | retry
+SQS-          queue | one consumer | pull based | 14 days retention | retry | DLQ | visibility  
 SQS Standard- max throughput | no ordering guarantee | duplicate possible | cheaper
-SQS FIFO-     ordering guaranteed | no duplicate | financial transactions | 300/3000/70k - High throughput mode
+SQS FIFO-     ordering guaranteed | no duplicate | financial transactions | 300/3000/70K - High throughput mode
 SNS-          pub/sub | push | fan-out | no retention | subscribers: SQS/Lambda/email/SMS
 EventBridge-  event bus | routing rules | AWS service events | cron schedule | SaaS | moderate throughput
 Fan-out-      SNS → SQS-payment + SQS-inventory + SQS-notify (all receive same event)
@@ -119,10 +108,10 @@ Fan-out-      SNS → SQS-payment + SQS-inventory + SQS-notify (all receive same
 ## Aurora vs RDS
 
 ```
-Aurora-       AWS managed | shared storage 6 copies | 15 read replicas | failover <30s | 128TB auto | 5x MySQL
+Aurora-       AWS managed | shared storage 6 copies | 15 read replicas - 100 ms | failover <30s | 128TB auto | 5x 3X | 
 RDS-          standard MySQL/PG | own storage per instance | 5 replicas | manual storage | cheaper simple
 Routing-      readOnly=true → reader endpoint | write → writer endpoint | AbstractRoutingDataSource
-Priority-     0-15 for failover promotion | 0 = highest | auto promoted on writer failure
+Priority-     0-15 for failover promotion | 0 = highest | auto promoted on writer failure | Region - failover < 1M | 1S
 ```
 
 ---
@@ -130,7 +119,7 @@ Priority-     0-15 for failover promotion | 0 = highest | auto promoted on write
 ## CloudWatch
 
 ```
-Logs-         centralized | log groups per service | log streams per container | regex search | 45 days retention
+Logs-         centralized | log groups per service | log streams per container | pattern search | back to times
 Metrics-      CPU/memory/custom | Micrometer → CloudWatch | HikariCP pool | Kafka lag | payment latency
 Alarms-       threshold → SNS → PagerDuty | CPU>80% | 5XX>10/min | SQS depth>100
 Log Insights- SQL-like queries | filter ERROR | stats count by bin(1h)
