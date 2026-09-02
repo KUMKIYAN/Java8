@@ -86,7 +86,7 @@ SQL inject | XSS | DDoS | bots | Bad IP block | geo block | sits front of API Ga
 EC2-          virtual machine | self managed | OS patch | GPU/ML | predictable traffic | IAM instance level
 ECS Fargate-  serverless containers | AWS managed | auto scale | pay per task | per task IAM | microservices
 ECS EC2-      you manage servers | cheaper steady traffic | spot instances | more control
-ECS concepts- Cluster=group | TaskDef=blueprint | Task=running container | Service=manages tasks | ECR=registry
+ECS concepts- Cluster=group services and Tasks | TaskDef=blueprint | Task=running container | Service=manages tasks | ECR=registry
 ```
 
 ---
@@ -95,10 +95,10 @@ ECS concepts- Cluster=group | TaskDef=blueprint | Task=running container | Servi
 
 ```
 What-         serverless | pay per invocation | 15min max | 10GB RAM | 1000 concurrent | stateless
-Triggers-     API Gateway | SQS | S3 | EventBridge cron | Kinesis | SNS | DynamoDB streams
-Cold start-   JVM slow start | 2-5s delay | fix: SnapStart | provisioned concurrency | thin JAR | GraalVM
+Triggers-     API Gateway | SQS |  SNS | DynamoDB streams | S3 | EventBridge cron | Kinesis
+Cold start-   JVM slow start | 2-5s delay | fix: SnapStart | provisioned concurrency | thin JAR | GraalVM | LL
 SnapStart-    JVM snapshot after init | faster restart | free | apply on PublishedVersions
-Limits-       15min | 10GB RAM | 6MB payload | 1000 concurrent | no stateful storage
+Limits-       15min | 10GB RAM | 6MB payload | 4KB ENV | 1000 concurrent | no stateful storage
 ```
 
 ---
@@ -108,7 +108,7 @@ Limits-       15min | 10GB RAM | 6MB payload | 1000 concurrent | no stateful sto
 ```
 SQS-          queue | pull based | 14 days retention | DLQ | one consumer | retry
 SQS Standard- max throughput | no ordering guarantee | duplicate possible | cheaper
-SQS FIFO-     ordering guaranteed | no duplicate | financial transactions | 300msg/s
+SQS FIFO-     ordering guaranteed | no duplicate | financial transactions | 300/3000/70k - High throughput mode
 SNS-          pub/sub | push | fan-out | no retention | subscribers: SQS/Lambda/email/SMS
 EventBridge-  event bus | routing rules | AWS service events | cron schedule | SaaS | moderate throughput
 Fan-out-      SNS → SQS-payment + SQS-inventory + SQS-notify (all receive same event)
