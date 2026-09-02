@@ -4,7 +4,7 @@
 
 ## Q1. Walk me through your most recent project — what was your role, tech stack and what problem did you solve?
 ```
-GPO | saga | SON | custom logic | XML | EDI | Nexus | XML content |  tech stack | team size | challenge | scale | 
+GPO | saga | JSON | custom logic | XML | EDI | Nexus | XML content |  tech stack | team size | challenge 
 Azure blob | MongoDB | Kuber naties cluster | newrelic and splunk  
 ```
 
@@ -66,7 +66,8 @@ our service fails→resume last offset | outbox pattern | REST calls→circuit b
 ## Q8. How did you ensure data consistency in your GPU project when publishing to multiple downstream systems?
 ```
 Outbox pattern | save data+event same @Transactional | both commit or rollback | publishable=false initially
-scheduler every 1 hour picks publishable=false | publish true | idempotency check
+scheduler every 1 hour picks publishable=false | publish true | idempotency check |
+publishable=true ONLY set AFTER successful publish.
 
 ```
 ---
