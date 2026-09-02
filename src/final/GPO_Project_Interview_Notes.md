@@ -4,24 +4,25 @@
 
 ## Q1. Walk me through your most recent project — what was your role, tech stack and what problem did you solve?
 ```
-GPO | JSON | custom logic | XML | EDI | Nexus | XML content |  tech stack | team size | challenge | scale | 
-Azure blob | MongoDB | Kuber naties cluster | newrelic and splunk | saga
+GPO | saga | SON | custom logic | XML | EDI | Nexus | XML content |  tech stack | team size | challenge | scale | 
+Azure blob | MongoDB | Kuber naties cluster | newrelic and splunk  
 ```
 
 ---
 
 ## Q2. In your GPO project you mentioned Kafka. What happens if EDI team downstream is down? How did you handle it?
 ```
-Kafka holds | async | 14 days retention | cascade failure | reads from commit offset | manual ack | retry  
-DLT  | alert | consumer lag Alert.
+Kafka holds | async | 14 days retention | cascade failure | reads from commit offset | manual ack 
+retry  | DLT  | alert | consumer lag Alert.
 ```
 
 ---
 
 ## Q3. You mentioned JSON to XML transformation. How did you handle different order types with different mapping rules?
 ```
-XSD schema validation | order types: create/update/cancel | deduplication publishable=true/false
-multiple updates → only latest processed | JAXB marshalling | invalid - DLT | Valid - EDI
+XSD schema validation | JAXB marshalling | @XmlRootElement @XmlElement | invalid - DLT | Valid - EDI
+order types: create/update/cancel | deduplication publishable=true/false
+multiple updates → only latest processed 
 
 
 ```
@@ -30,8 +31,9 @@ multiple updates → only latest processed | JAXB marshalling | invalid - DLT | 
 ## Q4. This role mentions MongoDB. Have you worked with MongoDB? How is it different from relational DB?
 ```
 large messages → Azure Blob | store URL in MongoDB | inbound+outbound collections | gpo-attributes collection
+collections | documents | _id | MongoRepository | @Document | @Field | @Aggregation 
 aggregation pipeline delayed events | $match→$sort→$group→$limit | pick next eligible event per order | no ACK
-collections | documents | _id | @Document @Field | @Aggregation | 
+
 
 ```
 ---
@@ -46,8 +48,8 @@ consumer idempotency check | already processed→ack+skip | manual ack | bad mes
 
 ## Q6. What is the difference between MongoDB aggregation pipeline and SQL GROUP BY? Give example from your project.
 ```
-| MongoDB=chain flexible | filter before+after group | $unwind flatten arrays
 aggregation=pipeline stages each output→next input | $match=WHERE | $group=GROUP BY | $sort | $limit | $lookup=JOIN
+MongoDB=chain flexible
 SQL GROUP BY=single operation 
 ```
 
@@ -55,7 +57,7 @@ SQL GROUP BY=single operation
 
 ## Q7. Your project uses microservices. How do services communicate? What happens if one service fails?
 ```
-Kafka async primary | producer not wait consumer | messages in broker | downstream down=no problem 
+Kafka async  | producer not wait consumer | messages in broker | casecade failure 
 our service fails→resume last offset | outbox pattern | REST calls→circuit breaker Resilience4j CLOSED→OPEN→HALF_OPEN | fallback
 ```
 
@@ -64,7 +66,7 @@ our service fails→resume last offset | outbox pattern | REST calls→circuit b
 ## Q8. How did you ensure data consistency in your GPU project when publishing to multiple downstream systems?
 ```
 Outbox pattern | save data+event same @Transactional | both commit or rollback | publishable=false initially
-scheduler every 1 hour picks publishable=false | publish→mark true | failure→stays false→retry next run | idempotency check
+scheduler every 1 hour picks publishable=false | publish true | idempotency check
 
 ```
 ---
