@@ -95,9 +95,9 @@ ECS concepts- Cluster=group services and Tasks | TaskDef=blueprint | Task=runnin
 
 ```
 What-         serverless | pay per invocation | 15min max | 10GB RAM | 1000 concurrent | stateless
-Triggers-     API Gateway | SQS |  SNS | DynamoDB streams | S3 | EventBridge cron | Kinesis
-Cold start-   JVM slow start | 2-5s delay | fix: SnapStart | provisioned concurrency | thin JAR | GraalVM | LL
-SnapStart-    JVM snapshot after init | faster restart | free | apply on PublishedVersions
+Triggers-     API Gateway | SQS |  SNS | S3 | DynamoDB streams | EventBridge cron | Kinesis
+Cold start-   n't called | stopped LC | new request | spins up LC | 2-5 seconds |  request get processed
+Fix-          JVM snapshot | thin-launcher | Lambda Layers (5) - SL| GraalVM | ProGuard | remove unused
 Limits-       15min | 10GB RAM | 6MB payload | 4KB ENV | 1000 concurrent | no stateful storage
 ```
 
