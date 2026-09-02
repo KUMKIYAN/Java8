@@ -130,8 +130,8 @@ Log Insights- SQL-like queries | filter ERROR | stats count by bin(1h)
 ## API Gateway
 
 ```
-HTTP API-     70% cheaper | JWT built-in | CORS built-in | no transform | no cache | most use cases
-REST API-     transform | cache | API keys | WAF | usage plans | enterprise | costlier
+HTTP API-     JWT built-in | CORS built-in | 70% cheaper | fast+cheap | most use cases | no transform | no cache |
+REST API-     transform | cache | API keys | usage plans | WAF | enterprise | costlier
 WebSocket-    bidirectional | persistent | live chat | stock prices | real-time
 vs ALB-       API GW = auth+rate limit+WAF public | ALB = internal routing cheaper faster
 Best practice- API GW (public) → ALB (internal) → ECS
