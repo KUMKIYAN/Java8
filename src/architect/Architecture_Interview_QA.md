@@ -52,6 +52,7 @@ Step 6 — Code Review:
 → check performance (N+1, indexes) ✅
 → check security (no hardcoded creds) ✅
 → check design patterns ✅
+→ Demo ✅
 
 Step 7 — CI/CD:
 → Jenkins pipeline ✅
@@ -78,7 +79,7 @@ Requirements → Design → Stories
 ```
 Backend:   Java 21 + Spring Boot ✅
 Messaging: Kafka (async) / REST (sync) ✅
-DB:        Aurora PostgreSQL / MySQL ✅
+DB:        SQL / NoSQL ✅
 Cache:     Caffeine / Redis ✅
 Cloud:     AWS ECS + Fargate ✅
 IaC:       Terraform ✅
@@ -232,27 +233,26 @@ log.info("Card: {}", cardNumber); // ❌
 ```
 Choose Kafka when:
 → async communication needed ✅
-→ producer should not wait ✅
 → high throughput ✅
 → millions of messages ✅
 → multiple consumers same event ✅
 → fan-out needed ✅
 → message replay needed ✅
+→ downstream can be slow ✅
+→ producer should not wait ✅
 → event sourcing ✅
 → audit trail ✅
 → decoupling services ✅
 → prevent cascade failures ✅
-→ downstream can be slow ✅
 
 Choose REST when:
-→ immediate response needed ✅
 → synchronous call ✅
-→ simple CRUD ✅
-→ client needs instant answer ✅
-→ payment authorization ✅
-   (need auth code NOW) ✅
-→ small payload ✅
 → request-response pattern ✅
+→ client needs instant answer ✅
+→ simple CRUD ✅
+→ payment authorization / Stock price ✅
+→ small payload ✅
+
 ```
 
 ### Real examples from projects
