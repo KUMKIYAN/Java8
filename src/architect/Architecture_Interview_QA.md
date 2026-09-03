@@ -61,10 +61,10 @@ Step 7 — CI/CD:
 → zero downtime ✅
 
 Step 8 — Monitoring:
-→ CloudWatch + Splunk alerts ✅
-→ PagerDuty on-call ✅
 → health endpoints ✅
 → metrics dashboards ✅
+→ CloudWatch + Splunk alerts ✅
+→ PagerDuty on-call ✅
 ```
 
 ### Complete flow
@@ -102,16 +102,17 @@ Security layers:
 → BCrypt password encoding ✅
 
 2. Authorization ✅
+→ FSI - requestMatcher and autheticate() ✅
+→ method level security ✅
 → @PreAuthorize role based ✅
 → @hasRole('ADMIN') ✅
-→ method level security ✅
 → least privilege principle ✅
 
 3. Data Security ✅
-→ secrets in AWS Secrets Manager ✅
+→ secrets in Secrets Manager ✅
 → KMS encryption ✅
-→ no hardcoded credentials ✅
 → never store plain passwords ✅
+→ no hardcoded credentials ✅
 → BCrypt hashing ✅
 → PCI DSS — card never stored ✅
 → Bluefin tokenization ✅
@@ -127,10 +128,9 @@ Security layers:
 → @Size, @Pattern ✅
 → prevent SQL injection ✅
 → prevent XSS ✅
-→ sanitize inputs ✅
 
 6. API Security ✅
-→ rate limiting ✅
+→ Rate limiting ✅
 → 429 Too Many Requests ✅
 → CORS configuration -> Cross-Origin Resource Sharing - which domains are allowed to make API call ✅.
 → CSRF disabled for JWT -> Cross-Site Request Forgery - Attacker trick uses logged-in user's browser make to make unwanted calls ✅. 
@@ -145,9 +145,9 @@ Security layers:
 → secrets rotation ✅
 
 8. Code Security ✅
+→ no secrets in Git ✅
 → SonarQube scans ✅
 → dependency vulnerability check ✅
-→ no secrets in Git ✅
 ```
 
 ### Code
@@ -237,11 +237,11 @@ Choose Kafka when:
 → prevent cascade failures ✅
 → fan-out needed ✅
 → multiple consumers same event ✅
+→ messages can be replayed if needed ✅
+→ downstream can be slow ✅
+→ producer need not wait ✅
 → high throughput ✅
 → millions of messages ✅
-→ message replay needed ✅
-→ downstream can be slow ✅
-→ producer should not wait ✅
 → event sourcing ✅
 → audit trail ✅
 

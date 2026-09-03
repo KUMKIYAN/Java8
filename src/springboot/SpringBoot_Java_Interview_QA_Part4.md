@@ -278,6 +278,11 @@ public class PaymentProcessingException
     public PaymentProcessingException(String msg) {
         super(msg);
     }
+
+    @Override
+    public synchronized Throwable fillInStackTrace() {
+        return this; // Avoid generating a stack trace
+    }
 }
 
 // Custom unchecked ✅
@@ -285,6 +290,11 @@ public class OrderNotFoundException
         extends RuntimeException {
     public OrderNotFoundException(String msg) {
         super(msg);
+    }
+
+    @Override
+    public synchronized Throwable fillInStackTrace() {
+        return this; // Avoid generating a stack trace
     }
 }
 
