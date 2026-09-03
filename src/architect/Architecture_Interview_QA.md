@@ -33,13 +33,13 @@ Step 3 — JIRA stories:
 
 Step 4 — Development:
 → ask developer approach before coding ✅
-→ Spring Boot microservices ✅
-→ REST APIs ✅
-→ Kafka for async ✅
-→ follow design patterns ✅
+→ Spring Boot +  microservices + Java Feature ✅
+→ REST APIs for sync communication ✅
+→ Kafka for async communication ✅
 → constructor injection ✅
 → proper exception handling ✅
 → logging at right levels ✅
+→ follow design patterns ✅
 
 Step 5 — Testing:
 → JUnit + Mockito unit tests ✅

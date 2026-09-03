@@ -293,7 +293,7 @@ Auto config flow-        reads META-INF/spring/AutoConfiguration.imports | evalu
 @Profile-                load beans per env | @Profile("dev") @Profile("prod") @Profile("!prod")
 Profiles-                application-dev.yml | application-prod.yml | SPRING_PROFILES_ACTIVE=prod
 @RefreshScope-           refresh bean without restart | /actuator/refresh | /actuator/busrefresh / Spring Cloud Bus = broadcast all pods
-@ConditionalOnProperty-  bean created only if property matches | havingValue | matchIfMissing
+@ConditionalOnProperty-  bean created only if property matches | havingValue | matchIfMissing - false -> skip bean | true -> create | if property miss 
 ```
 
 ---
@@ -439,6 +439,15 @@ DevTools-         auto restart on code change | LiveReload browser | disables te
 Service discovery- Eureka: register on startup | heartbeat 30s | query for instance | client-side
 API Gateway-      single entry | routing | JWT auth | rate limit | throttling 429 | transform | WAF | versioning
 ECS vs K8s-       ECS=AWS only simple | K8s=multi-cloud complex powerful industry standard
+```
+## DB config
+```
+connection-timeout-         wait to borrow from pool | 30s default ✅
+idle-timeout-               remove unused connections ✅
+max-lifetime-               recycle old connections ✅
+leak-detection-threshold-   warn if not returned ✅
+query.timeout-              individual query max time ✅
+@Transactional(timeout)-    entire transaction max time ✅
 ```
 ## Cache
 ```
