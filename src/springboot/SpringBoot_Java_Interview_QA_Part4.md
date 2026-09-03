@@ -1294,10 +1294,41 @@ safe.put(null, order);  // ConcurrentHashMap — NPE ❌
 
 // atomic operations ✅
 safe.putIfAbsent("ORD001", order);      // ✅
+// if ORD001 NOT exists → insert ✅
+// if ORD001 EXISTS     → do nothing ✅
+// returns existing value if present ✅
+
+// use when:
+// → object already created ✅
+// → just want to insert if missing ✅
+
 safe.computeIfAbsent("ORD001",
         k -> new Order());              // ✅
+// if ORD001 NOT exists → create + insert ✅
+// if ORD001 EXISTS     → do nothing ✅
+// object created ONLY if needed ✅
+
+// difference from putIfAbsent:
+// putIfAbsent   = object created ALWAYS ❌
+//                 even if key exists wasteful
+// computeIfAbsent = object created ONLY
+//                   when key missing ✅ lazy        
+
 safe.merge("ORD001", newOrder,
         (old, n) -> n);                // ✅
+// if ORD001 NOT exists → insert newOrder ✅
+// if ORD001 EXISTS     → apply function ✅
+//                        (old, new) → result ✅
+
+// use when:
+// → update existing value ✅
+// → combine old + new ✅
+// → word frequency count ✅
+
+// real example — word count ✅
+        map.merge(word, 1, Integer::sum);
+// not exists → put 1 ✅
+// exists     → old + 1 ✅
 ```
 
 ```
