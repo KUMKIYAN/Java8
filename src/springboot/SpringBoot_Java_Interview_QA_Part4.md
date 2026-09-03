@@ -350,6 +350,7 @@ public void createOrder() {
 ### Answer
 ```
 HashMap:
+→ Internal Data Strcture = array of note +  each array is linked list + RB tree if size > 8 ✅
 → no guaranteed order ❌
 → one null key ✅
 → null values ✅
@@ -358,6 +359,7 @@ HashMap:
 → capacity 16, load 0.75 ✅
 
 LinkedHashMap:
+→ Internal Data Strcture  = HashMap + doubly linked list => extra before+after pointers for order ✅
 → maintains INSERTION order ✅
 → one null key ✅
 → null values ✅
@@ -366,6 +368,7 @@ LinkedHashMap:
 → LRU cache use case ✅
 
 TreeMap:
+→ Internal Data Strcture  = Red-Black tree ✅
 → SORTED order (natural/custom) ✅
 → NO null key ❌
 → null values ✅
@@ -625,28 +628,61 @@ public void handleCompensation(
 
 ### Answer
 ```
-Real experience:
-→ missing @Qualifier → two KafkaTemplates ✅
-→ new object created per message ✅
-→ 5000 messages → 5000 objects ❌
-→ OutOfMemoryError ❌
-→ fixed with @Qualifier ✅
+Step 1 — check logs ✅
+→ what exact OOM error ✅
+→ heap space vs metaspace vs thread ✅
 
-Debug steps:
-Step 1 → CloudWatch memory metrics ✅
-Step 2 → /actuator/threaddump ✅
-Step 3 → /actuator/heapdump ✅
-         → open in Eclipse MAT ✅
-         → Leak Suspects Report ✅
-         → found KafkaTemplate × 5000 ✅
-Step 4 → add @Qualifier → singleton ✅
-Step 5 → verify memory drops ✅
+Step 2 — heap dump ✅
+→ /actuator/heapdump ✅
+→ OR -XX:+HeapDumpOnOutOfMemoryError ✅
+→ download .hprof file ✅
+
+Step 3 — analyze heap dump ✅
+→ Eclipse MAT tool ✅
+→ Leak Suspects Report ✅
+→ Dominator Tree ✅
+→ find which object × N times ✅
+
+Step 4 — thread dump ✅
+→ /actuator/threaddump ✅
+→ too many threads = thread leak ✅
+→ BLOCKED threads = deadlock ✅
+
+Step 5 — metrics ✅
+→ /actuator/metrics/jvm.memory.used ✅
+→ Grafana heap usage graph ✅
+→ when did memory start growing ✅
+
 
 Common causes:
 → missing @Qualifier → multiple beans ✅
 → static collection growing ❌
 → cache without eviction ❌
 → unclosed streams ❌
+
+Missing @Qualifier-    multiple beans created | fix @Qualifier ✅
+Static collection-     grows forever | fix bounded LinkedHashMap ✅
+Cache no TTL-          cache fills heap | fix TTL + maxSize ✅
+Thread leak-           threads not closed | fix ExecutorService.shutdown() ✅
+Connection leak-       DB connections not returned | fix HikariCP leak-detection ✅
+Large batch-           too many records in memory | fix pagination ✅
+String concatenation-  loop + = creates objects | fix StringBuilder ✅
+
+JVM flags
+-XX:+HeapDumpOnOutOfMemoryError     # auto dump on OOM ✅
+-XX:HeapDumpPath=/tmp/heap.hprof    # dump location ✅
+-Xms512m                            # initial heap ✅
+-Xmx2g                              # max heap 2GB ✅
+-XX:MaxMetaspaceSize=256m           # limit metaspace ✅
+-XX:+UseZGC                         # low latency GC ✅
+
+ OOM:
+→ missing @Qualifier ✅
+→ KafkaTemplate × 5000 objects ❌
+→ heap dump → Eclipse MAT ✅
+→ Dominator Tree → KafkaTemplate ✅ => help what object taking more space in the heap. 
+→ added @Qualifier → singleton ✅
+→ OOM never seen again ✅
 ```
 
 ```java
