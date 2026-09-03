@@ -45,7 +45,7 @@ Step 5 — Testing:
 → JUnit + Mockito unit tests ✅
 → Cucumber integration tests ✅
 → code coverage ✅
-→ SonarQube analysis ✅
+→ SonarQube analysis ✅ -Defects and code smells
 
 Step 6 — Code Review:
 → check requirements met ✅
