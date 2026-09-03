@@ -138,7 +138,7 @@ Security layers:
 → no sensitive data in URLs ✅
 
 7. Infrastructure Security ✅
-→ IAM roles minimal permissions ✅
+→ IAM roles with minimal permissions ✅
 → VPC private subnets ✅
 → security groups ✅
 → WAF on API Gateway ✅
@@ -147,7 +147,6 @@ Security layers:
 8. Code Security ✅
 → SonarQube scans ✅
 → dependency vulnerability check ✅
-→ OWASP guidelines ✅
 → no secrets in Git ✅
 ```
 
