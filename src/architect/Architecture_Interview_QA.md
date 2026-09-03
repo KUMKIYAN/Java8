@@ -233,17 +233,17 @@ log.info("Card: {}", cardNumber); // ❌
 ```
 Choose Kafka when:
 → async communication needed ✅
+→ decoupling services ✅
+→ prevent cascade failures ✅
+→ fan-out needed ✅
+→ multiple consumers same event ✅
 → high throughput ✅
 → millions of messages ✅
-→ multiple consumers same event ✅
-→ fan-out needed ✅
 → message replay needed ✅
 → downstream can be slow ✅
 → producer should not wait ✅
 → event sourcing ✅
 → audit trail ✅
-→ decoupling services ✅
-→ prevent cascade failures ✅
 
 Choose REST when:
 → synchronous call ✅
