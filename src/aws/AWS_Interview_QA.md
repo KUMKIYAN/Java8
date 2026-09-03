@@ -157,11 +157,14 @@ public class S3EventHandler
 ### Lambda limitations
 ```
 1. Cold start ❌
-   → first invocation → JVM starts → 2-5 seconds slow
+   → LC not used recently - stopped -  invocation → JVM starts → 2-5 seconds slow
    → Spring Boot context load → even slower ❌
    → fix: provisioned concurrency ✅
+   → fix: SnapStart ✅ - memory snapshot of fully initialized JVM
+   → fix: spring-boot-thin-launcher ✅ - Dependencies download separately
+   → fix: Lambda Layers ✅ - ZIP of shared libraries - resued across - attached at run time.
    → fix: GraalVM native image ✅
-   → fix: lighter framework (Quarkus, Micronaut) ✅
+   → fix: Remove Unused Dependencies & Auto Configurations
 
 2. Max execution time = 15 minutes ❌
    → long running tasks not suitable ❌
