@@ -208,7 +208,7 @@ Aurora:
 → separates compute and storage ✅
 → shared storage (6 copies across 3 AZs) ✅
 → up to 15 read replicas ✅
-→ single digit millisecond replication ✅
+→ less than 100 millisecond replication ✅
 → failover < 30 seconds ✅
 → auto scales to 128TB ✅
 → pay per usage not fixed size ✅
@@ -221,7 +221,7 @@ RDS:
 → standard MySQL/PostgreSQL/Oracle/SQL Server
 → each instance has its OWN storage ❌
 → max 5 read replicas ❌
-→ manual storage scaling ❌
+→ storage scaling - manual ❌
 → slower than Aurora ❌
 → cheaper for simple workloads ✅
 ```

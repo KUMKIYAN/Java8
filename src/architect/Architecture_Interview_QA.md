@@ -96,8 +96,8 @@ Monitor:   CloudWatch + Splunk ✅
 Security layers:
 
 1. Authentication ✅
+→ Spring Secuirty ✅
 → JWT token validation ✅
-→ API Gateway rate limiting ✅
 → Spring Security filter chain ✅
 → BCrypt password encoding ✅
 
@@ -108,13 +108,14 @@ Security layers:
 → least privilege principle ✅
 
 3. Data Security ✅
+→ secrets in AWS Secrets Manager ✅
+→ KMS encryption ✅
+→ no hardcoded credentials ✅
 → never store plain passwords ✅
 → BCrypt hashing ✅
 → PCI DSS — card never stored ✅
 → Bluefin tokenization ✅
-→ secrets in AWS Secrets Manager ✅
-→ no hardcoded credentials ✅
-→ KMS encryption ✅
+
 
 4. Transport Security ✅
 → HTTPS only ✅
