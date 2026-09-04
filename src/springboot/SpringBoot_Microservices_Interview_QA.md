@@ -267,12 +267,12 @@ Responsibilities:
 → authentication → validate JWT ✅
 → rate limiting → 100 req/sec per client ✅ Rule
 → Throttling -> stop client overwelming with external calls -> with 429 Too Many Requests ✅ enforcing the rule.
+→ circuit breaker → stop routing to failing service ✅
 → request/response transformation ✅
+→ caching → cache responses at gateway ✅
 → load balancing → healthy instances ✅
 → SSL termination → HTTPS at gateway ✅
 → API versioning → /v1/* → old, /v2/* → new ✅
-→ circuit breaker → stop routing to failing service ✅
-→ caching → cache responses at gateway ✅
 → logging → centralized request logging ✅
 → CORS handling ✅
 → WAF integration → block malicious requests ✅
