@@ -245,6 +245,16 @@ networks:
     driver: bridge
 ```
 
+```
+volumes: mongo-data:/data/db
+→ stores MongoDB data on host machine permanently ✅
+→ data survives even if container restarts or deleted ✅
+
+networks: app-network
+→ connects MongoDB and your app in same virtual network ✅
+→ app can talk to MongoDB using container name not IP ✅
+```
+
 ```bash
 # Docker Compose commands ✅
 docker compose up              # start all ✅
