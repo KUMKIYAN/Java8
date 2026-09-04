@@ -707,3 +707,261 @@ db.getCollection("OrderInboundAudit").aggregate([
 ❌ never use $where (JavaScript execution — slow, injection risk)
 ❌ never store large files in documents (use GridFS)
 ```
+
+# `findFirstDelayedEvent()` — Method Documentation
+
+---
+
+## Overview
+
+```
+Finds the FIRST delayed event per order
+from the OrderOutboundAudit collection ✅
+
+Uses MongoDB aggregation pipeline ✅
+Returns earliest delayed event per unique order number ✅
+```
+
+---
+
+## Method Signature
+
+```java
+public List<AuditEntity> findFirstDelayedEvent()
+```
+
+---
+
+## Parameters
+
+```
+None ✅
+```
+
+---
+
+## Returns
+
+```
+List<AuditEntity>
+→ first delayed event per unique order number ✅
+→ empty list if no delayed events found ✅
+```
+
+---
+
+## Throws
+
+```
+UncategorizedMongoDbException
+→ if MongoDB aggregation fails ✅
+```
+
+---
+
+## Aggregation Pipeline — 5 Steps
+
+### Step 1 — $match
+```
+Filter documents where:
+→ outputMessages.transmitStatus = "DELAYED" ✅
+→ only DELAYED records pass through ✅
+→ all others discarded ✅
+```
+```java
+MatchOperation matchStage = Aggregation.match(
+        Criteria.where("outputMessages.transmitStatus").is("DELAYED")
+);
+```
+
+---
+
+### Step 2 — $addFields (Extract Timestamp)
+```
+Extract timestamp from _id field:
+→ _id format: "ORD_001_GPO_20240101120000" ✅
+→ split by "_" → ["ORD","001","GPO","20240101120000"] ✅
+→ take index 3 → "20240101120000" ✅
+→ stored as extractedTimestamp field ✅
+→ used for sorting in next step ✅
+```
+```java
+AggregationOperation extractTimestampStage = context -> new Document("$addFields",
+        new Document("extractedTimestamp", new Document("$arrayElemAt", Arrays.asList(
+                new Document("$split", Arrays.asList("$_id", "_")), 3
+        )))
+);
+```
+
+---
+
+### Step 3 — $sort
+```
+Sort by extractedTimestamp:
+→ ascending order ✅
+→ oldest event first ✅
+→ ensures group picks earliest ✅
+```
+```java
+SortOperation sortStage = Aggregation.sort(Sort.Direction.ASC, "extractedTimestamp");
+```
+
+---
+
+### Step 4 — $group
+```
+Group by ORDER_NUMBER:
+→ groups all delayed events per order ✅
+→ picks FIRST document per group ✅
+→ first = oldest timestamp (from sort step) ✅
+→ stores full document as "firstEvent" ✅
+```
+```java
+GroupOperation groupStage = Aggregation.group("metaDataReport.statistics.ORDER_NUMBER")
+        .first(Aggregation.ROOT).as("firstEvent");
+```
+
+---
+
+### Step 5 — $replaceRoot
+```
+Clean up output:
+→ merge firstEvent fields ✅
+→ add orderNumber from _id ✅
+→ promote merged object to root ✅
+→ clean flat document output ✅
+```
+```java
+AggregationOperation replaceRootStage = context -> new Document("$replaceRoot",
+        new Document("newRoot", new Document("$mergeObjects", Arrays.asList(
+                "$firstEvent",
+                new Document("orderNumber", "$_id")
+        )))
+);
+```
+
+---
+
+## Complete Pipeline
+
+```java
+/**
+ * Finds the first delayed event per order from OrderOutboundAudit collection.
+ *
+ * Aggregation pipeline:
+ * 1. $match     - filter transmitStatus = DELAYED
+ * 2. $addFields - extract timestamp from _id
+ * 3. $sort      - sort by timestamp ascending (oldest first)
+ * 4. $group     - group by ORDER_NUMBER pick first event
+ * 5. $replaceRoot - merge fields promote to root
+ *
+ * @return List of AuditEntity — first delayed event per order
+ *         Empty list if no delayed events found
+ */
+public List<AuditEntity> findFirstDelayedEvent() {
+
+    // Step 1 — filter DELAYED only ✅
+    MatchOperation matchStage = Aggregation.match(
+            Criteria.where("outputMessages.transmitStatus").is("DELAYED")
+    );
+
+    // Step 2 — extract timestamp from _id ✅
+    AggregationOperation extractTimestampStage = context -> new Document("$addFields",
+            new Document("extractedTimestamp", new Document("$arrayElemAt", Arrays.asList(
+                    new Document("$split", Arrays.asList("$_id", "_")), 3
+            )))
+    );
+
+    // Step 3 — sort oldest first ✅
+    SortOperation sortStage = Aggregation.sort(Sort.Direction.ASC, "extractedTimestamp");
+
+    // Step 4 — group by order pick first ✅
+    GroupOperation groupStage = Aggregation.group("metaDataReport.statistics.ORDER_NUMBER")
+            .first(Aggregation.ROOT).as("firstEvent");
+
+    // Step 5 — promote to root with orderNumber ✅
+    AggregationOperation replaceRootStage = context -> new Document("$replaceRoot",
+            new Document("newRoot", new Document("$mergeObjects", Arrays.asList(
+                    "$firstEvent",
+                    new Document("orderNumber", "$_id")
+            )))
+    );
+
+    // Build pipeline ✅
+    Aggregation aggregation = Aggregation.newAggregation(
+            matchStage,
+            extractTimestampStage,
+            sortStage,
+            groupStage,
+            replaceRootStage
+    );
+
+    // Execute on OrderOutboundAudit collection ✅
+    AggregationResults<AuditEntity> results =
+            mongoTemplate.aggregate(aggregation, "OrderOutboundAudit", AuditEntity.class);
+
+    return results.getMappedResults();
+}
+```
+
+---
+
+## Example
+
+```
+Collection: OrderOutboundAudit
+
+Documents:
+_id: "ORD_001_GPO_20240101120000" | orderNumber: ORD001 | status: DELAYED
+_id: "ORD_001_GPO_20240101130000" | orderNumber: ORD001 | status: DELAYED
+_id: "ORD_001_GPO_20240101140000" | orderNumber: ORD001 | status: DELAYED
+_id: "ORD_002_GPO_20240101150000" | orderNumber: ORD002 | status: DELAYED
+
+Result:
+→ ORD001 → returns 20240101120000 event (earliest) ✅
+→ ORD002 → returns 20240101150000 event (only one) ✅
+→ Total 2 results returned ✅
+```
+
+---
+
+## Pipeline Flow
+
+```
+OrderOutboundAudit collection
+         ↓
+$match (transmitStatus = DELAYED)
+         ↓
+$addFields (extract timestamp from _id)
+         ↓
+$sort (timestamp ascending oldest first)
+         ↓
+$group (by ORDER_NUMBER pick first)
+         ↓
+$replaceRoot (merge + promote to root)
+         ↓
+List<AuditEntity> returned ✅
+```
+
+---
+
+## Dependencies
+
+```
+mongoTemplate-   MongoTemplate | Spring Data MongoDB ✅
+AuditEntity-     mapped result class ✅
+Collection-      OrderOutboundAudit ✅
+```
+
+---
+
+## Notes
+
+```
+→ _id must contain timestamp at index 3 after split by "_" ✅
+→ timestamp string must be sortable (yyyyMMddHHmmss format) ✅
+→ ORDER_NUMBER must exist in metaDataReport.statistics ✅
+→ returns one result per unique order number ✅
+→ if no DELAYED events → returns empty list ✅
+```
+

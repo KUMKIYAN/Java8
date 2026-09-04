@@ -11,7 +11,7 @@ Docker = containerization platform
 → package application + dependencies + runtime ✅
 → runs consistently on any machine ✅
 → solves "works on my machine" problem ✅
-→ lightweight + fast ✅
+→ lightweight + fast start up✅
 → shares host OS kernel ✅
 
 Problem it solves:
@@ -153,9 +153,9 @@ ENTRYPOINT ["java", "-XX:+UseZGC", "-jar", "app.jar"]
 Docker Compose:
 → define multiple containers in one file ✅
 → docker-compose.yml ✅
-→ start all with one command ✅
-→ networking between containers ✅
+→ start/stop all containers with one command ✅
 → startup order with depends_on ✅
+→ networking between containers ✅
 → volumes for data persistence ✅
 → perfect for local development ✅
 
