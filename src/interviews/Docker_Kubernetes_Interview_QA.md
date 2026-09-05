@@ -1021,8 +1021,8 @@ kubectl create = create only — fails if exists ❌
 ## Sidecar Container - Helper Container
 ```
 1. Logging agent ✅
-   → main container writes logs to file ✅
-   → sidecar reads log file ✅
+   → main container writes logs to stdout / console ✅
+   → sidecar reads log ✅
    → ships to Splunk/ELK/CloudWatch ✅
    → main app not responsible for log shipping ✅
 
