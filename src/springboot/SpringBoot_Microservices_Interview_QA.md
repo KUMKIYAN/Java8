@@ -1032,3 +1032,41 @@ public class OrderService {
 }
 
 ----------------------
+### How do you check your application over/under utilization of resource
+
+```
+1. Prometheus + Grafana ✅
+   → dashboard per microservice ✅
+   → historical trends ✅
+   → p50/p95/p99 percentiles ✅
+   → over days/weeks pattern ✅
+   → JVM heap usage ✅
+   → CPU utilization per pod ✅
+   → memory over time ✅
+
+CPU over utilized:
+→ CPU > 80% consistently ✅
+→ response time increasing ❌
+→ request queuing ❌
+→ pod throttling ❌
+→ auto scaling triggered ✅
+
+Memory over utilized:
+→ memory > 80% consistently ✅
+→ GC running frequently ❌
+→ OOM errors ❌
+→ pod restarting ❌
+→ heap dump needed ✅
+
+CPU under utilized:
+→ CPU < 10% always ✅
+→ over provisioned ❌
+→ wasting money ❌
+→ reduce CPU limit ✅
+
+Memory under utilized:
+→ memory < 20% always ✅
+→ reduce memory limit ✅
+→ save costs ✅
+
+```
