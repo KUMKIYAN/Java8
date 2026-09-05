@@ -13,7 +13,7 @@ Step 1 — Requirement Understanding:
 → clarify edge cases ✅
 → document in Confluence ✅
 → technical architecture diagram ✅
-→ sequence diagrams ✅ ( shows how objects/services interact with each other over time )
+→ sequence diagrams ✅ - shows how objects/services interact with each other over time.
 → brainstorm sessions ✅
 → manager sign-off ✅
 
@@ -237,8 +237,9 @@ Choose Kafka when:
 → prevent cascade failures ✅
 → fan-out needed ✅
 → multiple consumers same event ✅
+→ fire and forget ✅
 → messages can be replayed if needed ✅
-→ downstream can be slow ✅
+→ downstream can be temporarily down
 → producer need not wait ✅
 → high throughput ✅
 → millions of messages ✅

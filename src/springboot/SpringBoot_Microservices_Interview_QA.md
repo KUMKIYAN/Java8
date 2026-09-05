@@ -219,39 +219,32 @@ resilience4j:
 
 ---
 
-## Q6. Synchronous vs Asynchronous communication — when to choose Kafka over REST?
+## Q6. abstract vs interface ?
 
 ### Answer
 ```
-Synchronous (REST):
-→ caller waits for response ✅
-→ RestTemplate / RestClient / WebClient
-→ tight coupling between services
-→ cascade failure risk ❌
+abstract:
+→ partial implementation ✅
+→ CAN have concrete methods ✅
+→ CAN have constructor ✅
+→ CAN have instance variables ✅
+→ extends keyword ✅
+→ single inheritance only ✅
+→ CAN have any access modifier ✅
+→ use when sharing common code ✅
 
-Choose REST when:
-→ need immediate response
-→ payment — success or fail?
-→ stock check — available?
-→ user login — token valid?
+interface:
+→ pure contract ✅
+→ all methods abstract by default ✅
+→ NO constructor ❌
+→ variables = public static final only ✅
+→ implements keyword ✅
+→ multiple inheritance ✅
+→ methods = public by default ✅
+→ use when defining behaviour ✅
+→ Java 8+ = default + static methods ✅
 
-Asynchronous (Kafka):
-→ fire and forget ✅
-→ messages wait if downstream fails ✅
-→ loose coupling ✅
-→ no cascade failure ✅
 
-Choose Kafka when:
-→ fire and forget (notifications, emails)
-→ high throughput needed
-→ services need decoupling ✅
-→ event replay needed ✅
-→ downstream can be temporarily down ✅
-
-Other async tools:
-→ SQS        → simple queue, AWS managed
-→ RabbitMQ   → complex routing
-→ EventBridge→ event routing, AWS native
 ```
 
 ---
