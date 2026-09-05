@@ -1016,3 +1016,38 @@ kubectl create = create only — fails if exists ❌
 | kubectl apply | Safe. idempotent. use always ✅ |
 | kubectl rollout undo | Rollback deployment ✅ |
 | kubectl top pods | Check CPU/memory usage ✅ |
+
+```
+1. Logging agent ✅
+   → main container writes logs to file ✅
+   → sidecar reads log file ✅
+   → ships to Splunk/ELK/CloudWatch ✅
+   → main app not responsible for log shipping ✅
+
+2. Service Mesh Proxy (Istio/Envoy) ✅
+   → sidecar intercepts all network traffic ✅
+   → handles mTLS between services ✅
+   → retry + circuit breaker ✅
+   → distributed tracing ✅
+   → main app unaware ✅
+
+3. Monitoring/Metrics agent ✅
+   → sidecar collects JVM metrics ✅
+   → sends to Prometheus/Datadog ✅
+   → CPU memory Kafka lag ✅
+   → main app just runs ✅
+
+4. Config/Secret refresh ✅
+   → sidecar watches Secrets Manager ✅
+   → detects rotation ✅
+   → updates config files ✅
+   → main app reads fresh config ✅
+   → no restart needed ✅
+
+5. Security/Compliance scanner ✅
+   → sidecar scans outbound traffic ✅
+   → blocks unauthorized calls ✅
+   → PCI DSS compliance ✅
+   → audit all requests ✅
+   → main app unaware ✅
+```
