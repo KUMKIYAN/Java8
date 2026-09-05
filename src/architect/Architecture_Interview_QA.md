@@ -13,7 +13,7 @@ Step 1 — Requirement Understanding:
 → clarify edge cases ✅
 → document in Confluence ✅
 → technical architecture diagram ✅
-→ sequence diagrams ✅
+→ sequence diagrams ✅ ( shows how objects/services interact with each other over time )
 → brainstorm sessions ✅
 → manager sign-off ✅
 

@@ -360,11 +360,9 @@ Container:
 
 Pod:
 → wrapper around one or more containers ✅
-→ containers share same network (localhost) ✅
-→ containers share same storage volumes ✅
-→ containers share same IP address ✅
 → smallest deployable unit in K8s ✅
 → ephemeral — can die and restart ✅
+→ containers share same network / Storage / IP address
 
 Usually one container per pod ✅
 Sidecar pattern = multiple containers in pod ✅
