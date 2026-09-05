@@ -1017,6 +1017,8 @@ kubectl create = create only — fails if exists ❌
 | kubectl rollout undo | Rollback deployment ✅ |
 | kubectl top pods | Check CPU/memory usage ✅ |
 
+
+## Sidecar Container - Helper Container
 ```
 1. Logging agent ✅
    → main container writes logs to file ✅
