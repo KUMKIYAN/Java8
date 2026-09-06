@@ -122,11 +122,11 @@ public class PaymentService {
 → needs real DB or @MockBean
 
 @WebMvcTest:
+→ uses MockMvc to simulate HTTP requests
 → loads ONLY web layer (controller) ✅
 → no service, no repository beans
-→ fast — lightweight ✅
-→ uses MockMvc to simulate HTTP requests
 → service must be @MockBean ✅
+→ fast — lightweight ✅
 
 Other slice tests:
 @DataJpaTest    → repository layer only
