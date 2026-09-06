@@ -355,7 +355,7 @@ HashMap:
 → one null key ✅
 → null values ✅
 → not thread safe ❌
-→ O(1) ✅
+→ O(1) ✅ - get/put/remove
 → capacity 16, load 0.75 ✅
 
 LinkedHashMap:
@@ -364,7 +364,7 @@ LinkedHashMap:
 → one null key ✅
 → null values ✅
 → not thread safe ❌
-→ O(1) ✅
+→ O(1) ✅ - get/put/remove
 → LRU cache use case ✅
 
 TreeMap:
@@ -373,7 +373,7 @@ TreeMap:
 → NO null key ❌
 → null values ✅
 → not thread safe ❌
-→ O(log n) — Red-Black tree ✅
+→ O(log n) — - get/put/remove Red-Black tree ✅
 → range queries ✅
 ```
 
