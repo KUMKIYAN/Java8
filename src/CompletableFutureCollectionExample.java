@@ -110,3 +110,22 @@ public class CompletableFutureCollectionExample {
         return "PROCESSED-" + orderId; // ✅
     }
 }
+
+/*
+ * Orders: [ORD001, ORD002, ORD003]
+ * Results: [PROCESSED-ORD001, PROCESSED-ORD002,
+ *           PROCESSED-ORD003, PROCESSED-ORD004,
+ *           PROCESSED-ORD005]
+ * All orders: [ORD001, ORD002, ORD003, ORD004, ORD005]
+ * Status map: {ORD001=STATUS-ORD001 ...}
+ * Safe result: []
+ */
+
+/*
+List return-   supplyAsync(() -> List.of(...)) ✅
+Parallel list- stream().map(supplyAsync).collect() ✅
+allOf+join-    wait all + collect results ✅
+thenCombine-   merge two lists ✅
+Map return-    collect(Collectors.toMap()) ✅
+Error list-    exceptionally → return empty list ✅
+ */
