@@ -242,19 +242,6 @@ ExceptionTranslationFilter:
 → AuthenticationException → 401 Unauthorized ✅
 → AccessDeniedException   → 403 Forbidden ✅
 
-Extra notes:
-extract the user using token
-load user from DB 
-validate JWT signature/toke and set the authentcation object
-
-JWT = stateless:
-→ server stores nothing ✅
-→ no session ✅
-→ cannot trust just token alone ✅
-→ must verify user still exists ✅
-→ must verify user not disabled ✅
-→ must verify roles current ✅
-
 JWT has 3 PARTS:
 
 1. Header   → algorithm used (HS256, RS256)
@@ -282,9 +269,20 @@ Recalculates signature using SAME secret key
 Compares calculated vs received ✅
     ↓
 Match → not tampered → valid ✅
-No match → tampered → 401 ❌    
+No match → tampered → 401 ❌   
 
+Extra notes:
+extract the user using token
+load user from DB 
+validate JWT signature/toke and set the authentcation object
 
+JWT = stateless:
+→ server stores nothing ✅
+→ no session ✅
+→ cannot trust just token alone ✅
+→ must verify user still exists ✅
+→ must verify user not disabled ✅
+→ must verify roles current ✅ 
 
 CORS (Cross Origin Resource Sharing):
 → browser blocks requests from

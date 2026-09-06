@@ -1337,3 +1337,49 @@ public AlertService(@EmailQualifier NotificationService email) { }
 | @Retryable | Retry + backoff + jitter + @Recover fallback ✅ |
 | @Primary | Default bean when multiple same type ✅ |
 | @Qualifier | Specific bean — overrides @Primary ✅ |
+
+
+
+## Deadlock — Solution
+```
+What is Deadlock
+Thread A holds Lock 1 → waits for Lock 2 ❌
+Thread B holds Lock 2 → waits for Lock 1 ❌
+Both waiting forever ❌
+= Deadlock ❌
+
+
+Solutions
+1. Lock ordering ✅
+   → always acquire locks in SAME order ✅
+   → Thread A: Lock1 → Lock2 ✅
+   → Thread B: Lock1 → Lock2 ✅
+   → no circular wait ✅
+
+2. tryLock with timeout ✅
+   → try to acquire lock ✅
+   → if not acquired in N seconds → give up ✅
+   → retry later ✅
+   → no infinite wait ✅
+
+3. Avoid nested locks ✅
+   → never hold one lock while acquiring another ✅
+   → single lock per operation ✅
+
+4. Use higher level concurrency ✅
+   → ConcurrentHashMap ✅
+   → AtomicInteger ✅
+   → avoid synchronized blocks ✅
+
+5. Lock timeout (DB level) ✅
+   → @Transactional timeout ✅
+   → pessimistic lock timeout ✅
+   → DB kills long waiting tx ✅
+
+6. Deadlock detection ✅
+   → thread dump analysis ✅
+   → /actuator/threaddump ✅
+   → find BLOCKED threads ✅
+```
+
+
