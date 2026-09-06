@@ -242,9 +242,49 @@ ExceptionTranslationFilter:
 → AuthenticationException → 401 Unauthorized ✅
 → AccessDeniedException   → 403 Forbidden ✅
 
-SecurityContextHolder:
-→ stores authenticated user per request (ThreadLocal) ✅
-→ cleared after request completes
+Extra notes:
+extract the user using token
+load user from DB 
+validate JWT signature/toke and set the authentcation object
+
+JWT = stateless:
+→ server stores nothing ✅
+→ no session ✅
+→ cannot trust just token alone ✅
+→ must verify user still exists ✅
+→ must verify user not disabled ✅
+→ must verify roles current ✅
+
+JWT has 3 PARTS:
+
+1. Header   → algorithm used (HS256, RS256)
+              token type (JWT)
+              
+2. Payload  → claims (your answer fits here):
+              → sub      = username/user id ✅
+              → roles    = user roles ✅
+              → exp      = expiry time ✅
+              → iat      = issued at
+              → iss      = issuer (who issued the token)
+              → any custom claims
+
+3. Signature → verifies token not tampered
+               Hasing => HMAC-SHA256(header + payload, SECRET) 
+               Not encription/decription => can not reverse to get secret.            
+               
+Interview answer: JWT has three structural parts — Header containing the signing algorithm, Payload containing
+subject (username), roles, expiry time, and issued-at, and Signature which verifies the token has not been tampered with.
+
+On every request.               
+
+Recalculates signature using SAME secret key 
+    ↓
+Compares calculated vs received ✅
+    ↓
+Match → not tampered → valid ✅
+No match → tampered → 401 ❌    
+
+
 
 CORS (Cross Origin Resource Sharing):
 → browser blocks requests from
