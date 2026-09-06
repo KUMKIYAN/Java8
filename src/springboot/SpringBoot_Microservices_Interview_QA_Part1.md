@@ -230,7 +230,7 @@ abstract:
 → CAN have instance variables ✅
 → extends keyword ✅
 → single inheritance only ✅
-→ CAN have any access modifier ✅
+→ CAN have any access modifier public / default / protected
 → use when sharing common code ✅
 
 interface:
