@@ -14,7 +14,7 @@ Tech stack:
 → Java 21 + Spring Boot microservices ✅
 → Kafka for event streaming (5+ years) ✅
 → AWS (ECS, Aurora, SQS, SNS, Lambda) ✅
-→ Azure (AKS, Key Vault, Service Bus) ✅
+→ Azure (AKS, Key Vault, CosmosDB, Azure Blob, Azure sql) ✅
 → Oracle, MySQL, MongoDB, DynamoDB, Aurora ✅
 → Avro schema for Kafka producers/consumers ✅
 → RestTemplate, RestClient, WebFlux, gRPC ✅
