@@ -36,8 +36,8 @@ Monitor:   CloudWatch + Splunk ✅
 ## Q2. How to secure application?
 
 ```
-Authentication-   Spring Security | JWT | BCrypt 
-Authorization-    @PreAuthorize | @hasRole | method level | least privilege
+Authentication-   Spring Security | JWT | BCrypt (password encoded during registration | matches during login)
+Authorization-    FSI / @PreAuthorize | @hasRole | method level | least privilege
 Data Security-    BCrypt hash | Bluefin token | Secrets Manager | KMS | do not log
 Transport-        HTTPS | TLS 1.2+ | SSL cert | ACM
 Input Validation- @Valid | @NotNull | @Pattern | no SQL inject | no XSS
