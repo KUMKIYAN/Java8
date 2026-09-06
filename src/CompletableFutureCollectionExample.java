@@ -36,6 +36,8 @@ public class CompletableFutureCollectionExample {
                 CompletableFuture.allOf(
                     futures.toArray(new CompletableFuture[0]));
 
+        System.out.println("Futures size:" + futures.size());
+
         // collect all results into List ✅
         List<String> results = allDone
                 .thenApply(v -> futures.stream()
