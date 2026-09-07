@@ -191,6 +191,7 @@ Queue 1 → Payment Service - Queue 2 → Notification Service - Queue 3 → Inv
 
 ## AWS SQS - S3 - Simple Storage Service
 
+```
 S3 - Simple Storage Service - Object - image/video/JSON/JAR backup - Infinitely/Unlimited - highly durable 11 -
 nines - almost imposible to loose data - accessible via URL (Pre-Signed URL) - without needing AWS credentials - Object storage - not a file system - 0 bytes - 5TB. Global service - Replication - CRR - Disaster recovery - SRR - Versioning must be enabled.
 Standard - Standard-IA  - One Zone-IA - Intelligent (auto move) - Glacier Instant (quarter) - Glacier Flexible
@@ -202,5 +203,5 @@ S3 (static files) + CloudFront (CDN) + Route 53 (custom domain)
 Static website hosting - Image / video storage - Backup and disaster recovery - Data lake for analytics
 Application logs - CodePipeline artifacts - Docker image layers
 Use Lifecycle Rules to move objects automatically between classes.
-
+```
 
