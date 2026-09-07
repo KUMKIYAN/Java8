@@ -5,45 +5,34 @@
 ## Q1. How to develop application?
 
 ```
-Requirements- meet business | clarify edge cases | Confluence | sequence diagrams | sign-off
-Design-       Microservices | Define API contract | SQL/NoSQL |CQRS | DCP | Data models | 
-              communication pattern | third party | resources
-Stories-      JIRA | points | sprint planning | assign
-Development-  Ask approach first | SpringBoot + Java + Microservices features | Kafka | DS 
-              constructor injection | exception | logs
-Testing-      JUnit+Mockito | Cucumber | 90% coverage | SonarQube
-Code Review-  requirements | N+1+indexes | no hardcoded creds | design patterns | Demo | DS
-CI/CD-        Jenkins | build→test→sonar→deploy | Blue-Green | zero downtime
-Monitoring-   CloudWatch+Splunk | PagerDuty | health endpoints | dashboards
-Production-  First on call | RCA→fix→prevent
-Versioning-  /v1 /v2 | backward compat | @deprecated | sunset old
+Requirement - business | understand | edge cases | Confluence | architecture | sequence | brainstorm | sign|off.
+Design      - microservices | API contracts | data models | choose DB | choose communication | third party.
+JIRA        - user stories | story points | sprint planning | assign to dev
+Development - approach | Features | sync vs Async | DI | exception handling | right levels | design patterns
+Testing     - JUnit | Cucumber | coverage | SonarQube
+Code Review - check requirements + performance + security + design patterns + demo
+CI/CD       - pipeline | build → test → sonar → deploy | Blue|Green | zero downtime
+Monitoring  - health | metrics | CloudWatch + Splunk + Graphana | PagerDuty | RCA | fix | prevent recurrence.
+Production  -  First on call | RCA→fix→prevent
+Versioning  -  /v1 /v2 | backward compat | @deprecated | sunset old
 
 ```
 ### Tech stack choices
 ```
-Backend:   Java 21 + Spring Boot ✅
-Messaging: Kafka (async) / REST (sync) ✅
-DB:        Aurora PostgreSQL / MySQL ✅
-Cache:     Caffeine / Redis ✅
-Cloud:     AWS ECS + Fargate ✅
-IaC:       Terraform ✅
-CI/CD:     Jenkins Blue-Green ✅
-Monitor:   CloudWatch + Splunk ✅
+Backend - communication | DB | cache | Cloud | IaC | CI/CD | Monitor
 ```
-
 ---
-
 ## Q2. How to secure application?
 
 ```
-Authentication-   Spring Security | JWT | BCrypt (password encoded during registration | matches during login)
-Authorization-    FSI / @PreAuthorize | @hasRole | method level | least privilege
-Data Security-    BCrypt hash | Bluefin token | Secrets Manager | KMS | do not log
-Transport-        HTTPS | TLS 1.2+ | SSL cert | ACM
-Input Validation- @Valid | @NotNull | @Pattern | no SQL inject | no XSS
-API Security-     rate limit→429 | CORS=domain allow | CSRF=fake req
-Infrastructure-   IAM minimal | VPC  | security group | WAF | rotate secrets
-Code Security-    SonarQube | no secrets Git | dependency check
+Authentication      - Spring Secuirty | validation | Security filter chain | BCrypt
+Authorization       - east privilege principle | FSI | method level security | @PreAuthorize | hasRole.
+Data Security       - secrets | KMS | plain passwords | no hardcoded | BCrypt | Bluefin tokenization / encription
+Transport Security  - HTTPS | TLS | SSL
+Input Validation    - @Valid + @NotNull + @Size + @Pattern | SQL injection | XSS
+API Security        - Rate limiting | 429 | CORS | CSRF | no sensitive data in logs/URLs
+Infrastructure Security - IAM roles with minimal permissions | VPC | SG |  WAF | secrets rotation
+Code Security       - no secrets in Git | SonarQube | dependency scan
 ```
 
 ---
@@ -51,18 +40,16 @@ Code Security-    SonarQube | no secrets Git | dependency check
 ## Q3. Kafka vs REST?
 
 ```
-Kafka-   async | no wait | millions TPS | fan-out | replay | audit | decouple | casecade
-REST-    sync | immediate | CRUD  | tight coupled | casecade | Auth NOW | Stock | Fraud
-
-Kafka real- order→payment+inventory+notify | shipment→capture | Outbox
-REST real-  Bluefin VaultID | Chase auth | ACI fraud | GET order
+async communication - decoupling | cascade failures | fan-out | fire and forget | replayed | temporarily down - 
+high throughput     - millions of messages | event sourcing | audit trail
+synchronous         - request-response pattern | instant responses | CRUD | PAS Stock price + authentication
 ```
 
 ---
 
 ## WAF protects-
 ```
-SQL inject | XSS | DDoS | bots | Bad IP block | geo block | sits front of API Gateway | Terraform
+WAF - SQL Injection | OR 1=1 | XSS (Cross Site Scripting) | DDoS attacks |  Bot attacks | automated scraping |bad IP  | block specific countries.
 ```
 
 # AWS — Short Notes
