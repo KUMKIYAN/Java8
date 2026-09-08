@@ -460,6 +460,11 @@ strategy:
 - listener.type = batch ✅
 - Process 500 records at once ✅
 - saveAll to DB instead of one by one ✅
+  
+  - SINGLE = one message 
+    BATCH  = list of messages faster 
+    RECORD = same as SINGLE 
+    BATCH most efficient for high volume 
 
 **Fix 3 — Parallel async processing**
 - CompletableFuture per message ✅
