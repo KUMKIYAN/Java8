@@ -115,7 +115,7 @@ public class PaymentService {
 ### Answer
 ```
 @SpringBootTest:
-→ loads FULL application context ✅
+→ loads FULL application context 
 → all beans created (service, repo, controller)
 → slow — heavy ⚠️
 → end to end integration testing
@@ -123,10 +123,11 @@ public class PaymentService {
 
 @WebMvcTest:
 → uses MockMvc to simulate HTTP requests
-→ loads ONLY web layer (controller) ✅
+→ @WebMvcTest LOADS Spring context. BUT partial context only
+→ loads ONLY web layer (controller) 
 → no service, no repository beans
-→ service must be @MockBean ✅
-→ fast — lightweight ✅
+→ service must be @MockBean 
+→ fast — lightweight 
 
 Other slice tests:
 @DataJpaTest    → repository layer only
