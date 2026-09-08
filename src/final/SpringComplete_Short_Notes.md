@@ -114,6 +114,57 @@ Challenges-       network latency | cascade failures | distributed transactions 
 ## Spring Security
 
 ```
+Spring Security
+Authentication - who are you. 
+Authorization - what he can do.
+Chain of Responsibility - Every request passes  - one concern - 
+call next filter if pass and stops chain.
+
+SecurityContextPersistenceFilter  → load security context
+UsernamePasswordAuthenticationFilter → authenticate
+JwtAuthFilter (custom)            → validate JWT 
+ExceptionTranslationFilter        → handle 401/403
+FilterSecurityInterceptor         → check roles
+Controller                        → actual request 
+
+extract the user using token
+load user from DB 
+validate JWT signature/toke and set the authentcation object
+
+JWT = stateless ✅
+→ server stores nothing ✅
+→ no session ✅
+→ cannot trust just token alone ✅
+→ must verify user still exists ✅
+→ must verify user not disabled ✅
+→ must verify roles current ✅
+
+DB call every request ❌
+→ slow for high traffic ❌
+
+
+
+Signature = HMAC_SHA256(
+    base64(header) + "." + base64(payload),
+    secretKey
+) ✅
+
+→ takes header + payload + secret ✅
+→ produces fixed size hash ✅
+→ cannot reverse to get secret ✅
+→ one way only ✅
+
+Spring verifies
+
+Recalculates signature using SAME secret key 
+    ↓
+Compares calculated vs received ✅
+    ↓
+Match → not tampered → valid ✅
+No match → tampered → 401 ❌
+
+
+
 What-             authentication(who) + authorization(what) | filter chain | Chain of Responsibility
 Filter chain-     SecurityContextPersistenceFilter | UsernamePasswordAuthFilter | JwtAuthFilter
                   ExceptionTranslationFilter(401/403) | FilterSecurityInterceptor(roles)
