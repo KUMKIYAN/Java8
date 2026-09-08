@@ -11,6 +11,7 @@ JIRA        - user stories | story points | sprint planning | assign to dev
 Development - approach | Features | sync vs Async | DI | exception handling | right levels | design patterns
 Testing     - JUnit | Cucumber | coverage | SonarQube
 Code Review - check requirements + performance + security + design patterns + demo
+IaC         - terraform | provider | resources | state file | variables | output variables | environments  
 CI/CD       - pipeline | build → test → sonar → deploy | Blue|Green | zero downtime
 Monitoring  - health | metrics | CloudWatch + Splunk + Graphana | PagerDuty | RCA | fix | prevent recurrence.
 Production  -  First on call | RCA→fix→prevent
