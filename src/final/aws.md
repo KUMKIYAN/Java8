@@ -10,12 +10,12 @@ AWS's managed RD
 separates Compute and Storage
 Compute = CPU + RAM (database engine that processes queries)
     SQL query execution is costly operation 
-	- validate query 
-	- generate execution plan 
-	- execute query 
-	- get response from SSD Memeory 
-	- build the result 
-	- response to client
+	    - validate query 
+	    - generate execution plan 
+	    - execute query 
+	    - get response from SSD Memeory 
+	    - build the result 
+	    - response to client
 Storage = actual data on disk
 primary + replicas share same storage layer
 10GB → 128TB
