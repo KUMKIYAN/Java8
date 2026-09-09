@@ -576,3 +576,96 @@ Subquery   = query inside query ✅
 = use for complex filters ✅
 = slower than JOIN ✅
 
+
+## 13. Partitioning / sharding
+```
+Partitioning vs Sharding — not exactly same
+
+Partitioning - split data within the DB - logical division
+Sharding - splitting across MULTIPLE databases - physical separation - different servers
+
+Partitioning:
+→ ONE database ✅
+→ ONE logical table ✅
+→ multiple physical partitions ✅
+→ same server ✅
+→ DB handles routing ✅
+
+2.  Horizontal-     split ROWS across partitions | same columns each part ✅
+                    A-M table 1 | N-Z table 2 | each has same structure ✅
+
+3.  Vertical-       split COLUMNS across tables | frequently used together ✅
+                    user_basic=id,name,email | user_details=address,preferences ✅
+
+Sharding:
+→ MULTIPLE databases ✅
+→ MULTIPLE servers ✅
+→ application handles routing ✅
+→ more complex ❌
+
+Range-      value range → shard ✅
+Hash-       hash(key) % N → shard ✅
+Geographic- location → shard ✅
+Directory-  lookup table → shard ✅
+Composite-  combine two strategies ✅
+List-       specific values → shard ✅
+Round Robin- one by one even ✅
+
+1. Range Sharding ✅
+   → partition by range of values ✅
+   → A-M | N-Z ✅
+   → userId 1-1000 | 1001-2000 ✅
+   → simple to implement ✅
+   → risk: hotspot if one range popular ❌
+   → uneven distribution possible ❌
+
+2. Hash Sharding ✅
+   → hash(key) % N = shard number ✅
+   → hash(userId) % 4 = 0,1,2,3 ✅
+   → even distribution ✅
+   → no hotspot ✅
+   → range queries difficult ❌
+   → rebalancing hard ❌
+
+3. Geographic Sharding ✅
+   → based on user location ✅
+   → US users → US DB ✅
+   → EU users → EU DB ✅
+   → ASIA users → ASIA DB ✅
+   → low latency ✅
+   → data residency compliance ✅
+   → GDPR compliance ✅
+
+4. Directory Sharding ✅
+   → lookup table decides shard ✅
+   → userId → shard mapping stored ✅
+   → flexible ✅
+   → can move data between shards ✅
+   → lookup table = single point of failure ❌
+   → extra lookup call ❌
+
+5. Composite Sharding ✅
+   → combine two strategies ✅
+   → geographic + range ✅
+   → US users | range 1-1000 | 1001-2000 ✅
+   → more granular control ✅
+   → complex to manage ⚠️
+
+6. List Sharding ✅
+   → specific values to specific shard ✅
+   → country: USA,Canada → shard 1 ✅
+   → country: UK,France → shard 2 ✅
+   → known fixed categories ✅
+   → uneven if categories unbalanced ❌
+
+7. Round Robin Sharding ✅
+   → distribute evenly one by one ✅
+   → record 1 → shard 1 ✅
+   → record 2 → shard 2 ✅
+   → record 3 → shard 3 ✅
+   → even distribution ✅
+   → no ordering ❌
+   → range queries impossible ❌
+
+```
+
