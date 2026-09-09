@@ -591,10 +591,10 @@ Partitioning:
 → same server ✅
 → DB handles routing ✅
 
-2.  Horizontal-     split ROWS across partitions | same columns each part ✅
+  Horizontal-     split ROWS across partitions | same columns each part ✅
                     A-M table 1 | N-Z table 2 | each has same structure ✅
 
-3.  Vertical-       split COLUMNS across tables | frequently used together ✅
+  Vertical-       split COLUMNS across tables | frequently used together ✅
                     user_basic=id,name,email | user_details=address,preferences ✅
 
 Sharding:
@@ -603,13 +603,13 @@ Sharding:
 → application handles routing ✅
 → more complex ❌
 
-Range-      value range → shard ✅
-Hash-       hash(key) % N → shard ✅
-Geographic- location → shard ✅
-Directory-  lookup table → shard ✅
-Composite-  combine two strategies ✅
-List-       specific values → shard ✅
-Round Robin- one by one even ✅
+        Range-      value range → shard ✅
+        Hash-       hash(key) % N → shard ✅
+        Geographic- location → shard ✅
+        Directory-  lookup table → shard ✅
+        Composite-  combine two strategies ✅
+        List-       specific values → shard ✅
+        Round Robin- one by one even ✅
 
 1. Range Sharding ✅
    → partition by range of values ✅
