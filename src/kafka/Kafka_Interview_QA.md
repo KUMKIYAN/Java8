@@ -304,3 +304,83 @@ DltHandler     = handle poison messages + alert + store.
 
 outbox         = DB + event same transaction + scheduler publishes.
 slow producer  = check linger.ms batch.size async compression.
+
+## Batch Processing
+
+```
+// ── Batch Processing + Batch Acknowledgment ✅ ────────────────
+
+// application.yml ✅
+spring:
+  kafka:
+    listener:
+      type: batch                    // batch mode ✅
+      ack-mode: MANUAL_IMMEDIATE     // manual ack ✅
+    consumer:
+      max-poll-records: 500          // 500 per batch ✅
+      enable-auto-commit: false      // manual ✅
+
+// ── Consumer ✅ ───────────────────────────────────────────────
+@KafkaListener(
+    topics  = "order-events",
+    groupId = "payment-group")
+public void consumeBatch(
+        List<ConsumerRecord<String, OrderEvent>> records,
+        Acknowledgment ack) {
+
+    log.info("Batch size: {}", records.size()); // ✅
+
+    // process all records ✅
+    List<Order> orders = records.stream()
+            .map(record -> toEntity(
+                    record.value())) // ✅
+            .toList();
+
+    // bulk save — one DB call ✅
+    orderRepo.saveAll(orders); // ✅
+
+    // ack entire batch after processing ✅
+    ack.acknowledge();
+}
+
+// ── Per record ack — with saveAll ✅ ──────────────────────────
+@KafkaListener(topics = "order-events")
+public void consumeWithPerRecordAck(
+        List<ConsumerRecord<String, OrderEvent>> records,
+        Acknowledgment ack) {
+
+    List<Order> successOrders = new ArrayList<>();
+
+    for (ConsumerRecord<String, OrderEvent> record
+            : records) {
+        try {
+            // convert to entity ✅
+            Order order = toEntity(record.value());
+            successOrders.add(order); // ✅
+
+        } catch (Exception e) {
+            // bad record → DLT ✅
+            log.error("Failed: {} offset: {}",
+                    record.key(),
+                    record.offset());
+            dltService.send(record.value());
+            // others continue ✅
+        }
+    }
+
+    // saveAll valid records only ✅
+    if (!successOrders.isEmpty()) {
+        orderRepo.saveAll(successOrders); // ✅
+        // one DB call for all valid ✅
+    }
+
+    // ack entire batch ✅
+    ack.acknowledge();
+}
+
+max-poll-records-  how many per batch ✅
+saveAll-           one DB call for all ✅
+ack.acknowledge()- after all processed ✅
+per record try/catch- bad record → DLT ✅
+                      others continue ✅
+```
