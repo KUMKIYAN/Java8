@@ -8,7 +8,7 @@
 
 ### Answer
 ```
-Gap Inc — Payment Domain — 3 years ✅
+XYZ Inc — Payment Domain — 3 years ✅
 25+ Spring Boot microservices ✅
 AWS ECS + Aurora + Kafka ✅
 PCI DSS compliant ✅
@@ -264,7 +264,7 @@ Oracle:
 
 MySQL:
 → payment domain ✅
-→ Gap Inc ✅
+→ XYZ Inc ✅
 → Aurora MySQL ✅
 
 Azure SQL:
@@ -436,7 +436,7 @@ Production support:
 
 ### Real production incident
 ```
-At Gap payment domain:
+At XYZ payment domain:
 
 Problem:
 → Chase Gateway timing out ❌
@@ -472,25 +472,25 @@ Root cause analysis:
 
 ## Quick Reference — This JD Key Points
 
-| Requirement | Your Experience |
-|---|---|
-| Banking/Financial domain | Gap payment domain — 3 years ✅ |
-| End-to-end ownership | Requirements to production ✅ |
-| Java + Spring Boot | 12+ years ✅ |
-| AWS services | ECS, Aurora, SQS, Lambda ✅ |
-| RESTful APIs | 25+ microservices ✅ |
-| Full SDLC | Confluence + JIRA + deploy ✅ |
-| Unit testing | JUnit + Mockito ✅ |
-| Integration testing | Cucumber ✅ |
-| UAT support | On calls + on spot fixes ✅ |
-| Production support | First on call ✅ |
-| Relational DB | Oracle, MySQL, Aurora ✅ |
-| NoSQL DB | MongoDB, DynamoDB ✅ |
-| Messaging | Kafka 5+ years, IBM MQ, SQS ✅ |
-| Caching | Caffeine + @Cacheable ✅ |
+| Requirement | Your Experience                    |
+|---|------------------------------------|
+| Banking/Financial domain | XYZ payment domain — 3 years ✅     |
+| End-to-end ownership | Requirements to production ✅       |
+| Java + Spring Boot | 12+ years ✅                        |
+| AWS services | ECS, Aurora, SQS, Lambda ✅         |
+| RESTful APIs | 25+ microservices ✅                |
+| Full SDLC | Confluence + JIRA + deploy ✅       |
+| Unit testing | JUnit + Mockito ✅                  |
+| Integration testing | Cucumber ✅                         |
+| UAT support | On calls + on spot fixes ✅         |
+| Production support | First on call ✅                    |
+| Relational DB | Oracle, MySQL, Aurora ✅            |
+| NoSQL DB | MongoDB, DynamoDB ✅                |
+| Messaging | Kafka 5+ years, IBM MQ, SQS ✅      |
+| Caching | Caffeine + @Cacheable ✅            |
 | Performance tuning | N+1, indexes, OOM, infinite loop ✅ |
-| Code reviews | 4 devs + 4 QA team ✅ |
-| Mentoring | Proactive + pair programming ✅ |
-| Agile | Sprints + standups ✅ |
-| Root cause analysis | Document + prevent recurrence ✅ |
-| Architecture reviews | Technical docs + brainstorm ✅ |
+| Code reviews | 4 devs + 4 QA team ✅               |
+| Mentoring | Proactive + pair programming ✅     |
+| Agile | Sprints + standups ✅               |
+| Root cause analysis | Document + prevent recurrence ✅    |
+| Architecture reviews | Technical docs + brainstorm ✅      |

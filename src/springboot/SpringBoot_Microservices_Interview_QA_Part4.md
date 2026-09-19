@@ -19,7 +19,7 @@ Tech stack:
 → Avro schema for Kafka producers/consumers ✅
 → RestTemplate, RestClient, WebFlux, gRPC ✅
 
-Most recent project — Payment Domain at Gap:
+Most recent project — Payment Domain at XYZ:
 → maintained 25+ Spring Boot microservices ✅
 → Payment Authorization Service →
    tokenization via Bluefin → Chase Gateway ✅

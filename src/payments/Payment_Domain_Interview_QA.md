@@ -1,5 +1,5 @@
 # Payment Domain — Interview Q&A
-> 10 Questions based on real project experience at Gap/ECOM
+> 10 Questions based on real project experience at XYZ/ECOM
 
 ---
 
@@ -448,7 +448,7 @@ Flow:
 → New expiry date ✅
 → Bank connects to card network (Visa/MC) ✅
 → Account Updater service receives notification ✅
-→ Gap customer profile updated ✅
+→ XYZ customer profile updated ✅
 → Vault (Bluefin) updated with new card ✅
 → VaultID stays SAME — just details updated ✅
 → Customer never knew card expired ✅
@@ -512,7 +512,7 @@ Bank → Card Network (Visa/MC)
      ↓
 Account Updater receives notification ✅
      ↓
-Update Gap profile + Vault (Bluefin) ✅
+Update XYZ profile + Vault (Bluefin) ✅
 VaultID stays same ✅
      ↓
 Next transaction:
@@ -533,7 +533,7 @@ Bank connects to card network (Visa/MC) →
 Account Updater service receives notification ✅
 
 We update two things:
-1. Gap customer profile — new expiry ✅
+1. XYZ customer profile — new expiry ✅
 2. Vault (Bluefin) — new card details ✅
    VaultID stays the SAME ✅
 
@@ -576,22 +576,22 @@ Operations: Issue, Redeem, Void Redeem, Balance Check ✅
 
 AfterPay:
 → customer pays 4 installments ✅
-→ AfterPay pays Gap IMMEDIATELY ✅
+→ AfterPay pays XYZ IMMEDIATELY ✅
 → AfterPay collects from customer ✅
 → HTTPS/REST integration ✅
 
 Klarna:
 → customer pays in installments ✅
-→ Klarna LIABLE — Gap gets full amount upfront ✅
+→ Klarna LIABLE — XYZ gets full amount upfront ✅
 → Klarna collects from customer ✅
-→ Gap has ZERO credit risk ✅
+→ XYZ has ZERO credit risk ✅
 → via Klarna processor ✅
 
 Apple Pay:
 → Virtual PAN (device token) ✅
-→ real card number NEVER shared with Gap ✅
+→ real card number NEVER shared with XYZ ✅
 → Apple creates device token ✅
-→ Gap sends token to Chase ✅
+→ XYZ sends token to Chase ✅
 → Chase maps token → real card ✅
 
 PayPal:
@@ -608,7 +608,7 @@ via Chase + Bluefin tokenization ✅
 
 Digital Wallets:
 Apple Pay — Virtual PAN device token
-real card never shared with Gap ✅
+real card never shared with XYZ ✅
 Google Pay — similar ✅
 PayPal — encrypted token via BrainTree ✅
 
@@ -618,16 +618,16 @@ Issue, Redeem, Void Redeem, Balance Check ✅
 
 BNPL — Buy Now Pay Later:
 AfterPay — 4 installments
-AfterPay pays Gap IMMEDIATELY ✅
-Gap has no credit risk ✅
+AfterPay pays XYZ IMMEDIATELY ✅
+XYZ has no credit risk ✅
 
 Klarna — installments
-Klarna LIABLE — Gap gets full amount upfront ✅
+Klarna LIABLE — XYZ gets full amount upfront ✅
 Klarna collects from customer ✅
-Gap has ZERO credit risk ✅
+XYZ has ZERO credit risk ✅
 
 Key benefit:
-Gap paid immediately in BOTH cases ✅
+XYZ paid immediately in BOTH cases ✅
 Credit risk stays with AfterPay/Klarna ✅"
 ```
 
@@ -1097,25 +1097,25 @@ Refund = money already collected → return it ✅"
 
 ## Quick Reference — All 10 Key Points
 
-| Topic | Key Point |
-|---|---|
+| Topic | Key Point                                                                    |
+|---|------------------------------------------------------------------------------|
 | Auth flow | ECOM → Vault → Bluefin(encrypt) → VaultID → PAS → Bluefin(decrypt) → Chase ✅ |
-| Tokenization | Raw card → Bluefin → VaultID. Never stored in DB ✅ |
-| PCI DSS | Card never stored. CVV never stored. VaultID only ✅ |
-| Authorization | Hold funds. 7 day expiry. Not charged yet ✅ |
-| Capture | On shipment. Up to 130% of auth amount ✅ |
-| Re-Authorization | Scheduler every 2-3 hours. Same VaultID ✅ |
-| ACI Fraud | SOAP/XML. Accept/Deny/Challenge. OMS via Kafka ✅ |
-| Account Updater | Bank updates → profile + Vault updated. VaultID same ✅ |
-| BNPL | Gap paid upfront. Credit risk with AfterPay/Klarna ✅ |
-| SVS Gift Cards | Issue, Redeem, Void Redeem, Balance Check ✅ |
-| Idempotency | order + invoice + amount in settlement table ✅ |
-| Double charge | Two levels: settlement table + Chase idempotency key ✅ |
-| Blue-Green | Deploy inactive slot → test → approve → swap ✅ |
-| CM Ticket | PCI audit trail requirement for prod deploy ✅ |
-| Cancellation | Before shipment = void auth (no money moved) ✅ |
-| Refund | Reference (with order) or Blind (without order) ✅ |
-| Credit Memo | Partial refund for price match ✅ |
-| Return Recharge | Exchange without return → recharged ✅ |
-| TYSIS → Chase | TCP/IP to HTTP/REST. Cheaper + more reliable ✅ |
-| CVV rule | First-time auth only. Never stored. PCI requirement ✅ |
+| Tokenization | Raw card → Bluefin → VaultID. Never stored in DB ✅                           |
+| PCI DSS | Card never stored. CVV never stored. VaultID only ✅                          |
+| Authorization | Hold funds. 7 day expiry. Not charged yet ✅                                  |
+| Capture | On shipment. Up to 130% of auth amount ✅                                     |
+| Re-Authorization | Scheduler every 2-3 hours. Same VaultID ✅                                    |
+| ACI Fraud | SOAP/XML. Accept/Deny/Challenge. OMS via Kafka ✅                             |
+| Account Updater | Bank updates → profile + Vault updated. VaultID same ✅                       |
+| BNPL | XYZ paid upfront. Credit risk with AfterPay/Klarna ✅                         |
+| SVS Gift Cards | Issue, Redeem, Void Redeem, Balance Check ✅                                  |
+| Idempotency | order + invoice + amount in settlement table ✅                               |
+| Double charge | Two levels: settlement table + Chase idempotency key ✅                       |
+| Blue-Green | Deploy inactive slot → test → approve → swap ✅                               |
+| CM Ticket | PCI audit trail requirement for prod deploy ✅                                |
+| Cancellation | Before shipment = void auth (no money moved) ✅                               |
+| Refund | Reference (with order) or Blind (without order) ✅                            |
+| Credit Memo | Partial refund for price match ✅                                             |
+| Return Recharge | Exchange without return → recharged ✅                                        |
+| TYSIS → Chase | TCP/IP to HTTP/REST. Cheaper + more reliable ✅                               |
+| CVV rule | First-time auth only. Never stored. PCI requirement ✅                        |

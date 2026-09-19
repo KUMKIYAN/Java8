@@ -251,7 +251,7 @@ Patterns used:
 → Outbox pattern = consistency ✅
 → Saga choreography ✅
 
-Real example (Gap):
+Real example:
 → OMS publishes order event ✅
 → payment service consumes ✅
 → validates + processes ✅
@@ -362,12 +362,12 @@ When to use mTLS:
 → banking internal systems ✅
 → B2B high security integrations ✅
 
-Real example (Gap):
-→ Gap → Chase Gateway mTLS ✅
-→ Chase gives Gap client certificate ✅
-→ Gap presents on every call ✅
+Real example:
+→  → Chase Gateway mTLS ✅
+→ Chase gives XYZ client certificate ✅
+→ XYZ presents on every call ✅
 → Chase validates ✅
-→ only Gap can call Chase ✅
+→ only XYZ can call Chase ✅
 → fraud caller rejected ❌
 
 mTLS flow:
@@ -508,7 +508,7 @@ Tools:
 ## Q14. Third Party System Integration?
 
 ```
-Real integrations (Gap payment):
+Real integrations (Xyz payment):
 → Chase payment gateway ✅
 → ACI fraud detection (SOAP/XML) ✅
 → Bluefin tokenization ✅

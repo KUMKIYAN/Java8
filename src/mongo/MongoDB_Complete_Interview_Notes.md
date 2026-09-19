@@ -846,7 +846,7 @@ AggregationOperation replaceRootStage = context -> new Document("$replaceRoot",
 
 ```java
 /**
- * Finds the first delayed event per order from OrderOutboundAudit collection.
+ * Finds the first delayed event per order from OboundAudit collection.
  *
  * Aggregation pipeline:
  * 1. $match     - filter transmitStatus = DELAYED
@@ -896,9 +896,9 @@ public List<AuditEntity> findFirstDelayedEvent() {
             replaceRootStage
     );
 
-    // Execute on OrderOutboundAudit collection ✅
+    // Execute on OboundAudit collection ✅
     AggregationResults<AuditEntity> results =
-            mongoTemplate.aggregate(aggregation, "OrderOutboundAudit", AuditEntity.class);
+            mongoTemplate.aggregate(aggregation, "OboundAudit", AuditEntity.class);
 
     return results.getMappedResults();
 }

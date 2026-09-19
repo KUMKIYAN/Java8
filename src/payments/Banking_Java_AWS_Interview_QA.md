@@ -8,7 +8,7 @@
 
 ### Answer
 ```
-Gap Payment System — 3 years, 25+ Spring Boot microservices ✅
+Xyz Payment System — 3 years, 25+ Spring Boot microservices ✅
 
 Architecture:
 → event driven microservices on AWS ✅
@@ -55,7 +55,7 @@ CI/CD:
 
 ### Interview answer
 ```
-"I worked in Gap payment system for 3 years
+"I worked in XYZ payment system for 3 years
 maintaining 25+ Spring Boot microservices ✅
 
 Payment flow:
@@ -636,19 +636,19 @@ completed in 5 days ✅"
 
 ## Quick Reference — This JD Key Points
 
-| Requirement | Your Experience |
-|---|---|
-| Java/J2EE 10+ years | 12+ years ✅ |
-| AWS cloud | ECS, Aurora, Lambda, SQS, SNS ✅ |
-| Agile environment | Scrum, 2 week sprints, standups ✅ |
-| JUnit testing | @Mock, @InjectMocks, TDD ✅ |
-| Cucumber testing | Gherkin, feature files, step defs ✅ |
-| APM + Splunk | Splunk + CloudWatch + New Relic ✅ |
-| JIRA + Confluence | Daily use ✅ |
+| Requirement | Your Experience                       |
+|---|---------------------------------------|
+| Java/J2EE 10+ years | 12+ years ✅                           |
+| AWS cloud | ECS, Aurora, Lambda, SQS, SNS ✅       |
+| Agile environment | Scrum, 2 week sprints, standups ✅     |
+| JUnit testing | @Mock, @InjectMocks, TDD ✅            |
+| Cucumber testing | Gherkin, feature files, step defs ✅   |
+| APM + Splunk | Splunk + CloudWatch + New Relic ✅     |
+| JIRA + Confluence | Daily use ✅                           |
 | Terraform + infra | ECS, Aurora, ALB, IAM via Terraform ✅ |
-| Banking domain | Payment system — Gap 3 years ✅ |
-| Client interaction | Daily with manager + team ✅ |
-| Requirements docs | Confluence + diagrams ✅ |
-| On time delivery | Always ✅ |
+| Banking domain | Payment system — XYZ 3 years ✅        |
+| Client interaction | Daily with manager + team ✅           |
+| Requirements docs | Confluence + diagrams ✅               |
+| On time delivery | Always ✅                              |
 | Subject matter expert | Payment domain — PCI, auth, capture ✅ |
-| Team guidance | Senior — guide junior devs ✅ |
+| Team guidance | Senior — guide junior devs ✅          |
