@@ -1,7 +1,20 @@
 # Sorting Algorithms in Java — Complete Guide
 
 ---
+Covers all 10 algorithms:
 
+Bubble Sort — swap adjacent pairs
+Selection Sort — find min each pass
+Insertion Sort — build sorted one by one
+Merge Sort — divide + conquer + merge
+Quick Sort — pivot + partition
+Heap Sort — max heap extraction
+Counting Sort — count occurrences
+Radix Sort — digit by digit
+Shell Sort — gap-based insertion
+Tim Sort — Java default hybrid
+---
+---
 ## Quick Reference
 
 | Algorithm | Best | Average | Worst | Space | Stable |
