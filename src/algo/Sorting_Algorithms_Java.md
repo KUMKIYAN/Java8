@@ -1,8 +1,6 @@
 # Sorting Algorithms in Java — Complete Guide
-
 ---
 Covers all 10 algorithms:
-
 Bubble Sort — swap adjacent pairs
 Selection Sort — find min each pass
 Insertion Sort — build sorted one by one
