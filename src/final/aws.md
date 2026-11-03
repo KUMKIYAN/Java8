@@ -115,10 +115,10 @@ LSI query:
 
 ## AWS - API Gateway
 ```
-AWS managed service - secure, and monitor APIs
+AWS managed service - create, publish, secure, and monitor APIs.
 Routes all client requests
 REST API = full features - Request/response transform - Caching support - Usage plans + API keys - Default choice
-HTTP API = simple + cheap - 70% cheaper - No caching & transform - Best for Lambda + simple routes
+HTTP API = simple + cheap - 70% cheaper - No caching & transform - Best for Lambda + simple routes + max throughput 
 WebSocket =  Persistent connection - real-time 2W communication - Chat apps, live updates  - Push from server.
 Routing - Authentication - Rate Limiting - Throttling - Caching - Transform - Termination - Monitoring
 Authorizer
