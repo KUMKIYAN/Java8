@@ -35,7 +35,7 @@ class Student {
     }
 }
 
-public class HashKeyChallenge {
+public class HashSetChallenge {
 
     public static void main(String[] args) {
 
