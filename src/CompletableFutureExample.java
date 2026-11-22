@@ -117,7 +117,7 @@ public class CompletableFutureExample {
                             });
                         });
 
-    System.out.println(result.join());  // User Name for ID: 101
+    //result.join()  // User Name for ID: 101
 
 /*
     thenApply()	                                                thenCompose()

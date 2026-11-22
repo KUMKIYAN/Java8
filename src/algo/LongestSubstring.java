@@ -1,3 +1,5 @@
+package algo;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -6,7 +8,7 @@ public class LongestSubstring {
     public static void main(String[] args) {
 
         String input = "afabcdeabcbb";
-        int result = LongestSubstring(input);
+        int result = longestSubstring(input);
         System.out.println(result);
     }
 
