@@ -1,14 +1,14 @@
 Java coding challenges – Practice set
 Easy
 Array and String problems
-1. Find the second-largest element in an array.
-2. Find duplicate elements in an array.
+1. Find the second-largest element in an array. - Done
+2. Find duplicate elements in an array. 
 3. Find the frequency of each character in a string.
-4. Find the first non-repeating character.
-5. Reverse words in a sentence.
-6. Check whether two strings are anagrams.
-7. Find the missing number in an array.
-8. Find the longest substring without repeating characters.
+4. Find the first non-repeating character. - Done
+5. Reverse words in a sentence. - Done
+6. Check whether two strings are anagrams. - Done
+7. Find the missing number in an array. - Done
+8. Find the longest substring without repeating characters. - Done
    Medium
    Collections and problem solving
 9. Find the top three highest-frequency elements.
@@ -23,9 +23,9 @@ Array and String problems
 18. Find the maximum occurring character in a string.
     Advanced
     Interview-level problems
-19. Implement an LRU Cache.
-20. Implement a thread-safe Singleton.
-21. Implement a producer-consumer problem.
+19. Implement an LRU Cache. - Done
+20. Implement a thread-safe Singleton. - Done
+21. Implement a producer-consumer problem. - - Done
 22. Find the maximum subarray sum.
 23. Implement a custom HashMap.
 24. Design a rate limiter.
